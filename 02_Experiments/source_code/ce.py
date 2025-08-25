@@ -223,12 +223,12 @@ class ActionExtractor():
 
         if(len(log_name)!=0): prob.writeLP(log_name+'.lp')
         s = time.perf_counter()
-        prob.solve(solver=pulp.CPLEX_PY(msg=log_stream, warm_start=(len(init_sols)!=0), timeLimit=time_limit, options=['set output clonelog -1']))
+        prob.solve(solver=pulp.PULP_CBC_CMD(msg=log_stream, warmStart=(len(init_sols)!=0), timeLimit=time_limit))
         t = time.perf_counter() - s
 
         if(prob.status!=1):
             prob.writeLP('infeasible.lp')
-            prob.solve(solver=pulp.CPLEX_PY(msg=True, options=['set output clonelog -1']))
+            prob.solve(solver=pulp.PULP_CBC_CMD(msg=True))
             return {'feasible': False,
                     'sample': X.shape[0],
                     'action': np.zeros(X.shape[1]), 

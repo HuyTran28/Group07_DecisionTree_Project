@@ -1,0 +1,11 @@
+lightgbm==4.6.0
+lingam==1.10.0
+matplotlib==3.10.5
+numpy==2.3.2
+pandas==2.3.2
+pulp==3.2.2
+pyfpgrowth==1.0
+pytorch_tabnet==4.1.0
+scikit_learn==1.7.1
+scipy==1.16.1
+torch==2.4.1+cu124

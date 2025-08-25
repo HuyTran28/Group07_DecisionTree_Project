@@ -979,17 +979,17 @@ DATASETS_FULLNAME = {
     't':'EmployeeAttrition',
 }
 DATASETS_PATH = {
-    'g':'data/german.csv',
-    'w':'data/wine.csv',
-    'h':'data/heloc.csv',
-    'c':'data/compas.csv',
-    'a':'data/adult.csv', 
-    'd':'data/diabetes.csv',
-    'n':'data/NHANESI.csv',
-    's':'data/student.csv',
-    'b':'data/bank.csv',
-    'i':'data/attrition.csv',
-    't':'data/toy_attrition.csv',
+    'g':'./datasets/german.csv',
+    'w':'./datasets/wine.csv',
+    'h':'./datasets/heloc.csv',
+    'c':'./datasets/compas.csv',
+    'a':'./datasets/adult.csv', 
+    'd':'./datasets/diabetes.csv',
+    'n':'./datasets/NHANESI.csv',
+    's':'./datasets/student.csv',
+    'b':'./datasets/bank.csv',
+    'i':'./datasets/attrition.csv',
+    't':'./datasets/toy_attrition.csv',
 }
 TARGET_NAME = {
     'g':'GoodCustomer',

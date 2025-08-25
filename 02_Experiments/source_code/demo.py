@@ -4,7 +4,6 @@ from lightgbm import LGBMClassifier
 from utils import MyTabNetClassifier, DatasetHelper
 from cet import CounterfactualExplanationTree
 
-
 def demo_cet(dataset='t', model='X'):
     np.random.seed(0)
     LAMBDA = 0.01
