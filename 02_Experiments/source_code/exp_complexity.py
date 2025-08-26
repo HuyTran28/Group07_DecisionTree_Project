@@ -133,6 +133,6 @@ GAMMA = 1.0
 
 if(__name__ == '__main__'):
 
-    compare_comp(dataset='g', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
-    compare_comp(dataset='i', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
+    compare_comp(dataset='i', model='X', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
+    # compare_comp(dataset='i', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
 
