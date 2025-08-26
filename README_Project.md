@@ -7,6 +7,19 @@ CET là một framework cho bài toán Giải thích phản thực (CE), trong �
 
 ![demo](https://user-images.githubusercontent.com/52521189/151741986-3244bdb8-e47f-4c84-93d0-dca9b4a756a8.png)
 
+ # Hướng dẫn sử dụng
+
+## Cài đặt
+1. Clone repository này về máy:
+   ```bash
+   git clone https://github.com/kelicht/cet.git
+   cd cet
+   ```
+2. Cài đặt các thư viện cần thiết:
+   ```bash
+   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124
+   ```
+
 # Cấu trúc thư mục
 
 ```
@@ -61,18 +74,7 @@ CET là một framework cho bài toán Giải thích phản thực (CE), trong �
  ┃ ┗ 📜utils.py
  ```
 
- # Hướng dẫn sử dụng
 
-## Cài đặt
-1. Clone repository này về máy:
-   ```bash
-   git clone https://github.com/kelicht/cet.git
-   cd cet
-   ```
-2. Cài đặt các thư viện cần thiết:
-   ```bash
-   pip install -r requirements.txt
-   ```
 
 
  # Các datasets được sử dụng

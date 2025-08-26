@@ -8,4 +8,4 @@ pyfpgrowth==1.0
 pytorch_tabnet==4.1.0
 scikit_learn==1.7.1
 scipy==1.16.1
-torch==2.4.1+cu124
+torch==2.4.1
