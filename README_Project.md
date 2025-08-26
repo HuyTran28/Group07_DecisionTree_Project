@@ -61,6 +61,20 @@ CET là một framework cho bài toán Giải thích phản thực (CE), trong �
  ┃ ┗ 📜utils.py
  ```
 
+ # Hướng dẫn sử dụng
+
+## Cài đặt
+1. Clone repository này về máy:
+   ```bash
+   git clone https://github.com/kelicht/cet.git
+   cd cet
+   ```
+2. Cài đặt các thư viện cần thiết:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+
  # Các datasets được sử dụng
 
 - `adult.csv:` [Adult [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C5XW20)
@@ -75,36 +89,101 @@ CET là một framework cho bài toán Giải thích phản thực (CE), trong �
 - `toy_attrition.csv:`
 - `wine.csv:` [Wine Quality [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C56S3T)
 
-# Các thành phần chính
+
+
+
+
+# Mã nguồn framework Cây giải thích phản thực
 
 ## ce.py
+Triển khai các phương pháp Giải thích phản thực (CE) cho mô hình học máy. Tập trung vào việc sinh hành động hồi đáp khả thi để thay đổi nhãn dự đoán.
 
-Tệp này triển khai các phương pháp Giải thích phản thực cho các mô hình học máy, đặc biệt tập trung vào việc sinh ra các hành động hồi đáp có thể thực hiện để thay đổi kết quả dự đoán.
+1. Lớp `ActionExtractor`:
+- Thành phần chính, trích xuất hành động hồi đáp cho từng mẫu dựa trên mô hình đã huấn luyện.
+- Hỗ trợ nhiều loại mô hình: Logistic Regression, Random Forest, MLP hoặc xấp xỉ bằng LIME.
+- Xây dựng và giải các bài toán tối ưu tuyến tính để tìm hành động tối ưu với chi phí nhỏ nhất.
 
-- **Lớp ActionExtractor**: Là thành phần chính, dùng để trích xuất hành động hồi đáp cho từng mẫu dữ liệu dựa trên mô hình đã huấn luyện (Logistic Regression, Random Forest, MLP, hoặc sử dụng LIME approximation). Lớp này xây dựng và giải các bài toán tối ưu hóa tuyến tính để tìm ra hành động tối ưu với chi phí thấp nhất.
-
-- **Các hàm kiểm tra (_check_ce, _check_sens, _check_lime, __check_lime)**: Dùng để kiểm tra, đánh giá và minh họa cách hoạt động của phương pháp trên các bộ dữ liệu và mô hình khác nhau, cũng như phân tích độ nhạy của tham số trade-off.
-
-## ares.py
-
-Tệp này triển khai framework AReS (Actionable Recourse Summary), được thiết kế để tạo ra các hành động hồi đáp có thể giải thích được dưới dạng luật cho các mô hình học máy, đặc biệt là các bộ phân loại. Các thành phần chính gồm:
-
-- **FeatureDiscretizer**: Phân đoạn các đặc trưng liên tục và phân loại thành các khoảng (bins), hỗ trợ nhiều chiến lược (phân vị, đều), mã hóa one-hot và phủ định. Đây là bước quan trọng để khai phá luật.
-
-- **FrequentRuleMiner**: Sử dụng thuật toán khai phá mẫu phổ biến (FP-Growth) để trích xuất các luật phổ biến từ dữ liệu đã được phân đoạn. Hỗ trợ đặt tên luật, chuyển đổi, và khai phá với ngưỡng hỗ trợ tối thiểu và độ dài luật tối đa.
-
-- **AReS**: Lớp cốt lõi điều phối việc khai phá luật, tạo ứng viên, tối ưu hóa (chọn luật theo tham lam dựa trên độ bao phủ, độ chính xác và chi phí), và đánh giá. Cung cấp các phương thức huấn luyện, tinh chỉnh siêu tham số, dự đoán hành động hồi đáp và báo cáo kết quả.
-
-- **Các hàm tiện ích**: Bao gồm các hàm kiểm tra và tinh chỉnh framework trên nhiều bộ dữ liệu và mô hình khác nhau (ví dụ: Logistic Regression, Random Forest, LightGBM, TabNet).
+2. Các hàm kiểm tra (`_check_ce`, `_check_sens`, `_check_lime`, `__check_lime`): 
+- Dùng để đánh giá, kiểm thử trên nhiều mô hình & dataset.
+- Cho phép phân tích độ nhạy tham số trade-off và trực quan hóa kết quả CE.
 
 ## cet.py
+Triển khai Cây giải thích phản thực (CET), cung cấp tóm tắt dạng cây quyết định về các hành động hồi đáp khả thi.
+1. Cấu trúc cây:
+- `Node`, `DummyNode`: Đại diện nút trong cây, lưu trữ thông tin chia nhánh, hành động, chi phí và tập mẫu.
+- `CounterfactualExplanationTree`: Lớp cốt lõi để xây dựng, tối ưu hóa và đánh giá CET.
+2. Chức năng chính:
+- Xây dựng cây: từ tập CE, sinh cây quyết định phân vùng dữ liệu thành các phân lớp hành động.
+- Tích hợp module:
+    - `ActionExtractor` (sinh hành động CE).
+    - `FeatureDiscretizer`, `FrequentRuleMiner` (tiền xử lý & khai phá luật).
+    - `Cost` (tính chi phí hành động).
+- Tối ưu hóa cấu trúc cây: thông qua các phép thêm, xóa, thay thế, chuyển đổi nút.
+- Huấn luyện (fit): sử dụng tìm kiếm cục bộ ngẫu nhiên để cân bằng chi phí - mất mát - độ phức tạp.
+- Dự đoán (predict): gán hành động cho mẫu mới dựa trên lá trong CET.
+3. Hàm tiện ích
+- In/hiển thị cây.
+- Đánh giá chi phí/mất mát.
+- Kiểm tra tính khả thi.
+- `_check`: ví dụ minh họa với nhiều bộ phân loại & dataset khác nhau.
 
-Tệp này triển khai phương pháp Cây giải thích phản thực, xây dựng cây quyết định để tóm tắt các hành động hồi đáp có thể thực hiện cho các mô hình học máy. Các thành phần chính gồm:
+# Mã nguồn framework Giải pháp khắc phục khả thi theo cụm (Clusterwise Actionable Recourse)
+Framework sinh hành động hồi đáp khả thi dựa trên clustering để thay đổi nhãn dự đoán. Ý tưởng: nhóm các trường hợp (hoặc hành động) tương đồng lại, rồi tính một hành động “đại diện” tối ưu cho từng cụm.
 
-- **Lớp Node & DummyNode***: Đại diện cho các nút trong cây, lưu trữ thông tin về các nhánh chia, hành động, chi phí và các mẫu dữ liệu.
-- **Lớp CounterfactualExplanationTree**: Lớp cốt lõi xây dựng, tối ưu hóa và đánh giá CET. Hỗ trợ tạo cây, trích xuất hành động, tìm kiếm cục bộ ngẫu nhiên để tối ưu hóa cấu trúc cây và dự đoán hành động hồi đáp.
-- **Tích hợp với các module khác**: Sử dụng `ActionExtractor` để sinh hành động hồi đáp, `FeatureDiscretizer` và `FrequentRuleMiner` để tiền xử lý đặc trưng và khai phá luật, cùng với `Cost` để tính toán chi phí.
-- **Các hàm chỉnh sửa cây**: Bao gồm các phương thức thêm, xóa, thay thế và chuyển đổi nút để tối ưu hóa cấu trúc cây.
-- **Phương thức fit**: Huấn luyện CET bằng cách tìm kiếm cục bộ ngẫu nhiên, cân bằng các mục tiêu như chi phí, mất mát và độ phức tạp của cây.
-- **Các hàm tiện ích**: Dùng để in cây, đánh giá chi phí/mất mát và kiểm tra tính khả thi.
-- **Hàm _check**: Minh họa cách sử dụng với nhiều bộ phân loại và bộ dữ liệu khác nhau.
+## Thành phần chính:
+1. `ActionExtractor`: Trích xuất hành động tối ưu cho từng instance
+2. Clustering module:
+- Dùng KMeans để gom cụm.
+- Hỗ trợ hai chế độ:
+    - Instance clustering: gom cụm trực tiếp trên dữ liệu gốc.
+    - Action clustering: tính action vector cho mỗi instance, rồi gom cụm trong action space.
+3. Cost calculator
+- Tính chi phí thực hiện hành động (theo chuẩn L1, L2, hoặc tùy chỉnh).
+- Dùng để chọn ra hành động đại diện tối ưu cho cụm.
+
+## Quy trình huấn luyện và dự đoán
+1. Khởi tạo: `ActionExtractor`, `KMeans`, Cost calculator.
+2. Clustering
+- Instance clustering: chạy `KMeans` trên dữ liệu đầu vào $X$.
+- Action clustering: trước tiên sinh action vector $a_x$ cho từng $x$, sau đó gom cụm trên ${a_x}$.
+3. Hành động cụm
+- Với mỗi cluster $C_k$, chọn hành động tối ưu $a_k^*$ bằng cách:
+    - Tính tổng chi phí cho tất cả $x \in C_k$.
+    - Chọn hành động $a$ sao cho tổng chi phí tối thiểu.
+4. Dự đoán: 
+- Xác định cụm của instance mới $x$ (dựa trên input hoặc action space).
+- Gán hành động: trả về action vector $a_k^*$ tương ứng với cụm $C_k$.
+- Feasibility check: dùng feasify() để đảm bảo action hợp lệ (đặc biệt với đặc trưng nhị phân, phân loại).
+
+# Mã nguồn framework Giải pháp khắc phục khả thi (AReS)
+Triển khai framework AReS, cung cấp tóm tắt hành động hồi đáp dưới dạng luật dễ diễn giải cho mô hình học máy.
+
+1. `FeatureDiscretizer`
+- Phân đoạn đặc trưng liên tục thành khoảng (bins).
+- Hỗ trợ nhiều chiến lược: phân vị, khoảng đều.
+- Mã hóa one-hot và phủ định để chuẩn bị cho khai phá luật.
+- Bước quan trọng trong việc biến dữ liệu đầu vào thành dạng phù hợp cho FP-Growth.
+
+2. `FrequentRuleMiner`
+- Khai phá luật phổ biến bằng thuật toán FP-Growth.
+- Hỗ trợ:
+    - Ngưỡng hỗ trợ tối thiểu (min_support).
+    - Giới hạn độ dài luật tối đa.
+    - Đặt tên & chuyển đổi luật.
+- Đầu ra: tập hợp luật ứng viên cho hành động.
+
+3. `AReS`
+
+- Điều phối toàn bộ pipeline:
+    - Khai phá luật từ dữ liệu phân đoạn.
+    - Sinh ứng viên hành động.
+    - Chọn lọc bằng heuristic tham lam theo độ bao phủ - độ chính xác - chi phí.
+    - Tối ưu hóa cấu trúc luật để cân bằng hiệu quả và diễn giải.
+- Hỗ trợ:
+    - Huấn luyện & tinh chỉnh siêu tham số.
+    - Dự đoán hành động hồi đáp cho mẫu mới.
+
+4. Các hàm tiện ích
+- Kiểm tra framework trên nhiều dataset & classifier (Logistic Regression, Random Forest, LightGBM, TabNet...).
+- Cho phép phân tích và so sánh hiệu quả luật hồi đáp giữa các mô hình.
+
