@@ -17,7 +17,7 @@ CET là một framework cho bài toán Giải thích phản thực (CE), trong �
    ```
 2. Cài đặt các thư viện cần thiết:
    ```bash
-   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124
+   pip install -r requirements.txt
    ```
 
 # Cấu trúc thư mục
@@ -74,10 +74,7 @@ CET là một framework cho bài toán Giải thích phản thực (CE), trong �
  ┃ ┗ 📜utils.py
  ```
 
-
-
-
- # Các datasets được sử dụng
+ # Các tập dữ liệu được sử dụng
 
 - `adult.csv:` [Adult [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C5XW20)
 - `attrition.csv:` [Kaggle - IBM HR Analytics Employee Attrition & Performance](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
@@ -91,9 +88,27 @@ CET là một framework cho bài toán Giải thích phản thực (CE), trong �
 - `toy_attrition.csv:`
 - `wine.csv:` [Wine Quality [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C56S3T)
 
+| Mã tập dữ liệu | Tên tập dữ liệu |
+|--------------|--------------|
+| 'g' | German |
+| 'w' | Wine |
+| 'h' | HELOC |
+| 'c' | COMPAS |
+| 'a' | Adult |     
+| 'd' | Diabetes | 
+| 'n' | NHANESI | 
+| 's' | Student |
+| 'b' | Bank |
+| 'i' | Attrition | 
+| 't' | Toy Attrition | 
 
-
-
+| Mã mô hình | Tên mô hình |
+|----------|-----------|
+| 'L' | Logistic Regression |
+| 'F' | Random Forest |
+| 'M' | MLP |
+| 'X' | LightGBM |
+| 'T' | TabNet |
 
 # Mã nguồn framework Cây giải thích phản thực
 
