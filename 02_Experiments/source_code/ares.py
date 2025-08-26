@@ -587,7 +587,7 @@ def _check(dataset='h', model='L'):
     elif(model=='X'):
         print('* Classifier: LightGBM')
         from lightgbm import LGBMClassifier
-        mdl = LGBMClassifier(n_estimators=100, num_leaves=16, class_weight='balanced')
+        mdl = LGBMClassifier(n_estimators=100, num_leaves=16, class_weight='balanced', device='gpu')
         print('\t* n_estimators: {}'.format(mdl.n_estimators)); print('\t* num_leaves: {}'.format(mdl.num_leaves));
     elif(model=='T'):
         print('* Classifier: TabNet')
@@ -643,7 +643,9 @@ def _check_tuning(dataset='h', model='L', gamma=1.0):
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.neural_network import MLPClassifier
     from utils import DatasetHelper
+    import warnings
     np.random.seed(0)
+    warnings.filterwarnings('ignore', message='X does not have valid feature names')
 
     print('# Learing Actionable Recourse Summary')
     D = DatasetHelper(dataset=dataset)
@@ -716,6 +718,6 @@ if(__name__ == '__main__'):
     # _check(dataset='g')
 
     _check_tuning(model='X', dataset='i', gamma=1.0)
-    _check_tuning(model='X', dataset='g', gamma=1.0)
-    _check_tuning(model='T', dataset='i', gamma=1.0)
-    _check_tuning(model='T', dataset='g', gamma=1.0)
+    # _check_tuning(model='X', dataset='g', gamma=1.0)
+    # _check_tuning(model='T', dataset='i', gamma=1.0)
+    # _check_tuning(model='T', dataset='g', gamma=1.0)

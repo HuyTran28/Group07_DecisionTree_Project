@@ -59,30 +59,73 @@ pip install -r requirements.txt --extra-index-url https://download.pytorch.org/w
 
 ## Chạy thử
 
-1. Chạy thử CET:
+### Chạy thử CET:
 - Để thay đổi mô hình hoặc tập dữ liệu, chỉnh sửa các tham số `dataset` và `model` trong hàm `demo_cet` trong tệp `demo.py`.
-```bash
+```python
 if(__name__ == '__main__'):
     demo_cet(dataset='t', model='X')
 ```
-
 - Để thay đổi các siêu tham số, chỉnh sửa các tham số trong hàm `demo_cet` trong tệp `demo.py`.
-```bash
+```python
 def demo_cet(dataset='t', model='X'):
     np.random.seed(0)
     LAMBDA = 0.01    # Change regularization parameter
     GAMMA = 1.0      # Change trade-off parameter
 ```
-
 - Chạy thử mô phỏng đơn giản:
 ```bash
 cd source_code
 python demo.py
 ```
 
+### Chạy thử framework CE:
+
+- Sử dụng các hàm khác nhau để kiểm tra và đánh giá framework CE.
+```python
+if(__name__ == '__main__'):
+    # Basic exact CE testing
+    _check_ce(N=5, dataset='t', model='L')
+
+    # Test trade-off sensitivity  
+    _check_sens(N=10, dataset='g')
+
+    # Compare exact vs LIME approximation
+    _check_lime(N=3, dataset='h', model='M', compare=True)
+
+    # Test LIME with ensemble models
+    _check_lime(dataset='i', model='F', compare=False)
+```
+| Hàm kiểm tra | Mục đích | Mô hình có hỗ trợ |
+|--------------|-------|-------------|
+| `_check_ce` | Kiểm tra CE chính xác | L, F, M |
+| `_check_sens` | Kiểm tra độ nhạy tham số trade-off | L |
+| `_check_lime` | So sánh CE chính xác với xấp xỉ LIME | L, F, M |
+| `__check_lime` | Kiểm tra xấp xỉ LIME trên các mô hình tập hợp | L, F, M |
+
+- Chạy thử framework CE:
+```bash
+cd 02_Experiments
+python source_code/ce.py
+```
+
+### Chạy thử framework AReS:
+- Sử dụng các hàm khác nhau để kiểm tra và đánh giá framework AReS.
+```python
+if(__name__ == '__main__'):
+    # Quick test with default parameters
+    _check(dataset='g', model='L')
+
+    # Optimize hyperparameters for best performance
+    _check_tuning(dataset='g', model='L', gamma=1.0)
+```
+
+- Chạy thử framework AReS:
+```bash
+cd 02_Experiments
+python source_code/ares.py
+```
 
 # Cấu trúc thư mục
-
 ```
 📦02_Experiments
  ┣ 📂datasets
@@ -134,8 +177,6 @@ python demo.py
  ┃ ┣ 📜userstudy.py
  ┃ ┗ 📜utils.py
  ```
-
-
 
 # Mã nguồn framework Cây giải thích phản thực
 
