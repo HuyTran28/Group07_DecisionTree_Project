@@ -11,7 +11,7 @@ MARKER = {'clustering':'v', 'ares':'s', 'cet':'o'}
 
 
 def latex_compare(model='T', datasets=['i','g'], l=0.02, g=1.0):
-    filenames = [ ['./res/compare/{}/{}_{}_{}_{}.csv'.format(model, method, DATASET[dataset], l, g) for method in METHODS.keys()] for dataset in datasets ]
+    filenames = [ ['../results/compare/{}/{}_{}_{}_{}.csv'.format(model, method, DATASET[dataset], l, g) for method in METHODS.keys()] for dataset in datasets ]
     for i, dataset in enumerate(datasets):
         print(DATASETNAME[dataset])
         for j, method in enumerate(METHODS.keys()):
@@ -28,7 +28,7 @@ def latex_compare(model='T', datasets=['i','g'], l=0.02, g=1.0):
 
 
 def latex_compare_time(models=['X','T'], datasets=['i','g'], l=0.02, g=1.0):
-    filenames = [ [ ['./res/compare/{}/{}_{}_{}_{}.csv'.format(model, method, DATASET[dataset], l, g) for method in METHODS.keys()] for dataset in datasets ] for model in models]
+    filenames = [ [ ['../results/compare/{}/{}_{}_{}_{}.csv'.format(model, method, DATASET[dataset], l, g) for method in METHODS.keys()] for dataset in datasets ] for model in models]
     average = [0, 0, 0]
     for k, model in enumerate(models):
         for i, dataset in enumerate(datasets):
@@ -52,18 +52,18 @@ def plot_sens_comp(model='L', datasets=['i','g'], gamma=1.0):
         plt.subplot(2, 2, (i+1))
         plt.title(DATASETNAME[dataset], fontsize=16)
         for method in METHODS.keys():
-            df = pd.read_csv('./res/complexity/{}/{}_{}_{}.csv'.format(model, method, DATASET[dataset], gamma))
+            df = pd.read_csv('../results/complexity/{}/{}_{}_{}.csv'.format(model, method, DATASET[dataset], gamma))
             plt.plot(df['n_actions'], df['cost_test'], marker=MARKER[method], label='{}'.format(METHODS[method]))
         plt.xlabel(r'\#Actions', fontsize=14); plt.ylabel('Cost (test)', fontsize=14); plt.xticks([4,8,12,16,20], fontsize=12); plt.yticks(fontsize=12); plt.tight_layout(); 
         # if(i==0): plt.legend()
         plt.subplot(2, 2, i+3)
         for method in METHODS.keys():
-            df = pd.read_csv('./res/complexity/{}/{}_{}_{}.csv'.format(model, method, DATASET[dataset], gamma))
+            df = pd.read_csv('../results/complexity/{}/{}_{}_{}.csv'.format(model, method, DATASET[dataset], gamma))
             plt.plot(df['n_actions'], df['loss_test'], marker=MARKER[method], label='{}'.format(METHODS[method]))
         plt.xlabel(r'\#Actions', fontsize=14); plt.ylabel('Loss (test)', fontsize=14); plt.xticks([4,8,12,16,20], fontsize=12); plt.yticks(fontsize=12); plt.tight_layout(); 
         if(i==1): plt.legend(fontsize=12)
-    plt.savefig('./res/complexity/{}/tradeoff.png'.format(model), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('./res/complexity/{}/tradeoff.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/complexity/{}/tradeoff.png'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/complexity/{}/tradeoff.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 # plot_sens_comp(model='L', datasets=['i', 'g'], gamma=1.0)
@@ -77,7 +77,7 @@ def plot_sens_comp_pareto_frontier(model='L', datasets=['i', 'g'], gamma=1.0):
         plt.subplot(1, 2, (i+1))
         plt.title(DATASETNAME[dataset], fontsize=16)
         for method in METHODS.keys():
-            df = pd.read_csv('./res/complexity/{}/{}_{}_{}.csv'.format(model, method, DATASET[dataset], gamma))
+            df = pd.read_csv('../results/complexity/{}/{}_{}_{}.csv'.format(model, method, DATASET[dataset], gamma))
             plt.scatter(df['cost_test'], df['loss_test'], marker=MARKER[method], label='{}'.format(METHODS[method]), s=75, linewidth=0.5, edgecolor='black')
             for n, (x,y) in zip(df['n_actions'], zip(df['cost_test'], df['loss_test'])):
                 text_fontsize=12
@@ -124,8 +124,8 @@ def plot_sens_comp_pareto_frontier(model='L', datasets=['i', 'g'], gamma=1.0):
         plt.xticks(fontsize=12); plt.yticks(fontsize=12); plt.tight_layout(); 
         if(i==1): plt.legend(fontsize=12)
 
-    plt.savefig('./res/complexity/{}/tradeoff_pareto.png'.format(model), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('./res/complexity/{}/tradeoff_pareto.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/complexity/{}/tradeoff_pareto.png'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/complexity/{}/tradeoff_pareto.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 plot_sens_comp_pareto_frontier(model='L', datasets=['i', 'g'], gamma=1.0)
@@ -139,12 +139,12 @@ def plot_sens_comp_all(model='L', dataset='i', gamma=1.0):
         for i, key1 in enumerate(['cost', 'loss', 'obj']):
             plt.subplot(2, 3, i + j*3 + 1)
             for method in METHODS.keys():
-                df = pd.read_csv('./res/complexity/{}/{}_{}_{}.csv'.format(model, method, DATASET[dataset], gamma))
+                df = pd.read_csv('../results/complexity/{}/{}_{}_{}.csv'.format(model, method, DATASET[dataset], gamma))
                 plt.plot(df['n_actions'], df[key1+'_'+key2], marker=MARKER[method], label='{}'.format(METHODS[method]))
             plt.xlabel(r'\#Actions'); plt.ylabel('{} ({})'.format('Invalidity' if key1=='obj' else key1.capitalize(), key2)); plt.xticks([4,8,12,16,20]); plt.tight_layout(); 
             if(i==1 and j==0): plt.legend()
-    plt.savefig('./res/complexity/{}/tradeoff_{}.png'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05); 
-    plt.savefig('./res/complexity/{}/tradeoff_{}.pdf'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05);
+    plt.savefig('../results/complexity/{}/tradeoff_{}.png'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05); 
+    plt.savefig('../results/complexity/{}/tradeoff_{}.pdf'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05);
     plt.clf()
 
 # plot_sens_comp_all(model='L', dataset='i', gamma=1.0)
@@ -158,14 +158,14 @@ def plot_sens_gamma(model='L', datasets=['i','g'], gammas=[0.1, 0.2, 0.3, 0.4, 0
     for i, dataset in enumerate(datasets):
         plt.subplot(1, 2, i+1)
         plt.title(DATASETNAME[dataset])
-        df = pd.read_csv('./res/gamma/{}/sensitivity_{}.csv'.format(model, DATASET[dataset]))
+        df = pd.read_csv('../results/gamma/{}/sensitivity_{}.csv'.format(model, DATASET[dataset]))
         plt.plot(gammas, [df[df['gamma']==g]['cost'].mean() for g in gammas], marker='o', label=r'cost $c(a \mid x)$ (MPS)')
         plt.plot(gammas, [df[df['gamma']==g]['loss'].mean() for g in gammas], marker='s', label=r'loss $l(f(x+a), +1)$')
         plt.xlabel(r'$\gamma$')
         if(i==0): plt.legend()
         plt.tight_layout()
-    plt.savefig('./res/gamma/{}/sensitivity.png'.format(model), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('./res/gamma/{}/sensitivity.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/gamma/{}/sensitivity.png'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/gamma/{}/sensitivity.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 # plot_sens_gamma()
@@ -176,15 +176,15 @@ def plot_sens_conv(model='L', dataset='g', gammas=[0.75, 1.0, 1.25], lambdas=[0.
     plt.rcParams['text.usetex'] = True
     if(len(lambdas)==1):
         plt.figure(figsize=(6,6))
-        res_name = './res/convergence/{}/convergence_{}_partial'.format(model, DATASET[dataset])
+        res_name = '../results/convergence/{}/convergence_{}_partial'.format(model, DATASET[dataset])
     else:
         plt.figure(figsize=(14,7))
-        res_name = './res/convergence/{}/convergence_{}'.format(model, DATASET[dataset])
+        res_name = '../results/convergence/{}/convergence_{}'.format(model, DATASET[dataset])
     for i, g in enumerate(gammas):
         for j, l in enumerate(lambdas):
             plt.subplot(len(gammas), len(lambdas), i*len(lambdas) + j + 1)
             plt.title(r'$\gamma={}$, $\lambda={}$'.format(g,l))
-            df = pd.read_csv('./res/convergence/{}/cet_{}_objective_{}_{}.csv'.format(model, DATASET[dataset], l, g))
+            df = pd.read_csv('../results/convergence/{}/cet_{}_objective_{}_{}.csv'.format(model, DATASET[dataset], l, g))
             plt.plot(df['Iteration'], df['obj'], label=r'$t$-th objective value $o_{\gamma, \lambda}(h^{(t)})$')
             plt.plot(df['Iteration'], df['obj_bound'], label='Best objective value $o_{\gamma, \lambda}(h^{*})$')
             plt.xlabel(r'Iteration $t$'); plt.ylabel(r'Objective value $o_{\gamma, \lambda}(h)$')

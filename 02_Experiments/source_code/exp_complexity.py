@@ -109,9 +109,9 @@ def compare_comp(dataset='g', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[
         dict_cet['n_actions'].append(cet.n_leaves_);
         print()
 
-    pd.DataFrame(dict_clustering).to_csv('./res/complexity/{}/clustering_{}_{}.csv'.format(model, D.dataset_name, GAMMA), index=False)
-    pd.DataFrame(dict_ares).to_csv('./res/complexity/{}/ares_{}_{}.csv'.format(model, D.dataset_name, GAMMA), index=False)
-    pd.DataFrame(dict_cet).to_csv('./res/complexity/{}/cet_{}_{}.csv'.format(model, D.dataset_name, GAMMA), index=False)
+    pd.DataFrame(dict_clustering).to_csv('../results/complexity/{}/clustering_{}_{}.csv'.format(model, D.dataset_name, GAMMA), index=False)
+    pd.DataFrame(dict_ares).to_csv('../results/complexity/{}/ares_{}_{}.csv'.format(model, D.dataset_name, GAMMA), index=False)
+    pd.DataFrame(dict_cet).to_csv('../results/complexity/{}/cet_{}_{}.csv'.format(model, D.dataset_name, GAMMA), index=False)
 
 
 

@@ -76,8 +76,8 @@ def demo_cet(dataset='t', model='X'):
 
 - Chạy thử mô phỏng đơn giản:
 ```bash
-cd 02_Experiments
-python source_code/demo.py
+cd source_code
+python demo.py
 ```
 
 

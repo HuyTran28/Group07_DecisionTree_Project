@@ -113,7 +113,7 @@ def compare_cv(dataset='g', model='L', n_splits=5):
         print('- Test:'); print('\t- cost: {}'.format(cet_cost)); print('\t- loss: {}'.format(cet_loss)); print('\t- obj.: {}'.format(cet_cost + GAMMA * cet_loss));
         dict_cet['time'].append(cet.time_); dict_cet['n_actions'].append(cet.n_leaves_);
         print()
-        pd.DataFrame(cet.objs_).to_csv('./res/compare/{}/convergence/cet_{}_objective_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA, k), index=False)
+        pd.DataFrame(cet.objs_).to_csv('../results/compare/{}/convergence/cet_{}_objective_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA, k), index=False)
 
 
         k += 1
@@ -136,9 +136,9 @@ def compare_cv(dataset='g', model='L', n_splits=5):
     print('- AReS      :', np.mean(dict_ares['n_actions'])); 
     print('- CET       :', np.mean(dict_cet['n_actions']));
     print(); print();
-    pd.DataFrame(dict_clustering).to_csv('./res/compare/{}/clustering_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA), index=False)
-    pd.DataFrame(dict_ares).to_csv('./res/compare/{}/ares_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA), index=False)
-    pd.DataFrame(dict_cet).to_csv('./res/compare/{}/cet_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA), index=False)
+    pd.DataFrame(dict_clustering).to_csv('../results/compare/{}/clustering_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA), index=False)
+    pd.DataFrame(dict_ares).to_csv('../results/compare/{}/ares_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA), index=False)
+    pd.DataFrame(dict_cet).to_csv('../results/compare/{}/cet_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA), index=False)
 
 
 

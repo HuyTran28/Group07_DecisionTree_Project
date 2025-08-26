@@ -62,7 +62,7 @@ def sensitivity(dataset='g', model='L', N=10, M=100, gammas=[0.25, 0.5, 0.75, 1.
             res['cost'].append(c); res['loss'].append(l); res['obj'].append(o)
         print()
     print(); print();
-    pd.DataFrame(res).to_csv('./res/gamma/{}/sensitivity_{}.csv'.format(model, D.dataset_name), index=False)
+    pd.DataFrame(res).to_csv('../results/gamma/{}/sensitivity_{}.csv'.format(model, D.dataset_name), index=False)
 
 
 

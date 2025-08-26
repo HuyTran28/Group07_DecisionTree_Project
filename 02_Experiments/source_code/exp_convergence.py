@@ -37,7 +37,7 @@ def convergence(dataset='g', model='L', params=(0.01, 1.0)):
     cet = cet.fit(X, max_change_num=3, cost_type=COST_TYPE, C=l, gamma=g, time_limit=60, verbose=True)
     print('## Learned CET')
     cet.print_tree()
-    pd.DataFrame(cet.objs_).to_csv('./res/convergence/{}/cet_{}_objective_{}_{}.csv'.format(model, D.dataset_name, l, g), index=False)
+    pd.DataFrame(cet.objs_).to_csv('../results/convergence/{}/cet_{}_objective_{}_{}.csv'.format(model, D.dataset_name, l, g), index=False)
 
 
 
