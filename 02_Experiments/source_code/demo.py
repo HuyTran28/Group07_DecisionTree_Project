@@ -1,10 +1,12 @@
 import numpy as np
+import warnings
 from sklearn.linear_model import LogisticRegression
 from lightgbm import LGBMClassifier
 from utils import MyTabNetClassifier, DatasetHelper
 from cet import CounterfactualExplanationTree
 
 def demo_cet(dataset='t', model='X'):
+    warnings.filterwarnings('ignore', message='X does not have valid feature names')
     np.random.seed(0)
     LAMBDA = 0.01
     GAMMA = 1.0

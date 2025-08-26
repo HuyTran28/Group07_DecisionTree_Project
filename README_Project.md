@@ -7,18 +7,79 @@ CET là một framework cho bài toán Giải thích phản thực (CE), trong �
 
 ![demo](https://user-images.githubusercontent.com/52521189/151741986-3244bdb8-e47f-4c84-93d0-dca9b4a756a8.png)
 
- # Hướng dẫn sử dụng
+# Các tập dữ liệu được sử dụng
+
+- `adult.csv:` [Adult [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C5XW20)
+- `attrition.csv:` [Kaggle - IBM HR Analytics Employee Attrition & Performance](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
+- `bank.csv:` [Bank Marketing [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C5K306)
+- `compas.csv:` 
+- `diabetes.csv:` [Predict Diabetes From Medical Records]([www.kaggle.com/code/paultimothymooney/predict-diabetes-from-medical-records](https://www.kaggle.com/code/paultimothymooney/predict-diabetes-from-medical-records))
+- `german.csv:` Dua, D. and Graff, C. (2017) UCI Machine Learning Repository
+- `heloc.csv:`
+- `NHANESI.csv:`
+- `student.csv:`
+- `toy_attrition.csv:`
+- `wine.csv:` [Wine Quality [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C56S3T)
+
+| Mã tập dữ liệu | Tên tập dữ liệu | Kích thước | Trường hợp sử dụng |
+|--------------|--------------|-------|-------------------|
+| 'g' | German | Vừa | Phê duyệt tín dụng |
+| 'w' | Wine | Vừa | Dự đoán chất lượng |
+| 'h' | HELOC | Lớn | Dự đoán rủi ro tín dụng |
+| 'c' | COMPAS | Vừa | Dự đoán tội phạm |
+| 'a' | Adult | Lớn | Dự đoán thu nhập |
+| 'd' | Diabetes | Vừa | Dự đoán bệnh tiểu đường |
+| 'n' | NHANESI | Lớn | Dự đoán sức khỏe |
+| 's' | Student | Vừa | Dự đoán thành công học tập |
+| 'b' | Bank | Lớn | Dự đoán khách hàng |
+| 'i' | Attrition | Vừa | Dự đoán nghỉ việc |
+| 't' | Toy Attrition | Nhỏ | Kiểm thử |
+
+| Mã mô hình | Tên mô hình | Phân loại | Tốc độ | Độ chính xác | Khả năng lý giải |
+|----------|-----------|----------|--------|--------------|----------------|
+| 'L' | Logistic Regression | Tuyến tính | Nhanh | Tương đối | Cao |
+| 'F' | Random Forest | Tập hợp cây quyết định | Trung bình | Cao | Trung bình |
+| 'M' | Multi-Layer Perceptron | Mạng nơ-ron | Trung bình | Cao | Thấp |
+| 'X' | LightGBM | Tăng cường theo gradient | Nhanh | Rất cao | Thấp |
+| 'T' | TabNet | Học sâu | Chậm | Rất cao | Trung bình |
+
+# Hướng dẫn sử dụng
 
 ## Cài đặt
 1. Clone repository này về máy:
-   ```bash
-   git clone https://github.com/kelicht/cet.git
-   cd cet
-   ```
-2. Cài đặt các thư viện cần thiết:
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+git clone https://github.com/HuyTran28/Group07_DecisionTree_Project.git
+cd 02_Experiments
+```
+
+2. Cài đặt các thư viện cần thiết:   
+```bash
+pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124
+```
+
+## Chạy thử
+
+1. Chạy thử CET:
+- Để thay đổi mô hình hoặc tập dữ liệu, chỉnh sửa các tham số `dataset` và `model` trong hàm `demo_cet` trong tệp `demo.py`.
+```bash
+if(__name__ == '__main__'):
+    demo_cet(dataset='t', model='X')
+```
+
+- Để thay đổi các siêu tham số, chỉnh sửa các tham số trong hàm `demo_cet` trong tệp `demo.py`.
+```bash
+def demo_cet(dataset='t', model='X'):
+    np.random.seed(0)
+    LAMBDA = 0.01    # Change regularization parameter
+    GAMMA = 1.0      # Change trade-off parameter
+```
+
+- Chạy thử mô phỏng đơn giản:
+```bash
+cd 02_Experiments
+python source_code/demo.py
+```
+
 
 # Cấu trúc thư mục
 
@@ -74,41 +135,7 @@ CET là một framework cho bài toán Giải thích phản thực (CE), trong �
  ┃ ┗ 📜utils.py
  ```
 
- # Các tập dữ liệu được sử dụng
 
-- `adult.csv:` [Adult [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C5XW20)
-- `attrition.csv:` [Kaggle - IBM HR Analytics Employee Attrition & Performance](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
-- `bank.csv:` [Bank Marketing [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C5K306)
-- `compas.csv:` 
-- `diabetes.csv:` [Predict Diabetes From Medical Records]([www.kaggle.com/code/paultimothymooney/predict-diabetes-from-medical-records](https://www.kaggle.com/code/paultimothymooney/predict-diabetes-from-medical-records))
-- `german.csv:` Dua, D. and Graff, C. (2017) UCI Machine Learning Repository
-- `heloc.csv:`
-- `NHANESI.csv:`
-- `student.csv:`
-- `toy_attrition.csv:`
-- `wine.csv:` [Wine Quality [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C56S3T)
-
-| Mã tập dữ liệu | Tên tập dữ liệu |
-|--------------|--------------|
-| 'g' | German |
-| 'w' | Wine |
-| 'h' | HELOC |
-| 'c' | COMPAS |
-| 'a' | Adult |     
-| 'd' | Diabetes | 
-| 'n' | NHANESI | 
-| 's' | Student |
-| 'b' | Bank |
-| 'i' | Attrition | 
-| 't' | Toy Attrition | 
-
-| Mã mô hình | Tên mô hình |
-|----------|-----------|
-| 'L' | Logistic Regression |
-| 'F' | Random Forest |
-| 'M' | MLP |
-| 'X' | LightGBM |
-| 'T' | TabNet |
 
 # Mã nguồn framework Cây giải thích phản thực
 
