@@ -20,8 +20,8 @@ class Clustering():
         self.extractor_ = ActionExtractor(mdl, X, Y=Y, lime_approximation=lime_approximation, n_samples=n_samples, alpha=alpha,
                                           feature_names=feature_names, feature_types=feature_types, feature_categories=feature_categories, 
                                           feature_constraints=feature_constraints, max_candidates=max_candidates, tol=tol, target_name=target_name, target_labels=target_labels)
-        self.cluster_ = KMeans(n_clusters=n_clusters, init='k-means++', n_init=10, max_iter=300, tol=0.0001, 
-                               precompute_distances='deprecated', verbose=0, random_state=None, copy_x=True, n_jobs='deprecated', algorithm='auto')
+        self.cluster_ = KMeans(n_clusters=n_clusters, init='k-means++', n_init=10, max_iter=300, tol=0.0001,
+                      random_state=None)
         self.n_clusters_ = n_clusters
         self.cost_ = Cost(X, Y, feature_types=feature_types, feature_categories=feature_categories, feature_constraints=feature_constraints, max_candidates=max_candidates, tol=tol)
         self.print_centers_ = print_centers

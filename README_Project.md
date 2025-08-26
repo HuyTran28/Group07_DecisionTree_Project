@@ -57,7 +57,7 @@ cd 02_Experiments
 pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124
 ```
 
-## Chạy thử
+## Chạy thử các framework
 
 ### Chạy thử CET:
 - Để thay đổi mô hình hoặc tập dữ liệu, chỉnh sửa các tham số `dataset` và `model` trong hàm `demo_cet` trong tệp `demo.py`.
@@ -74,11 +74,11 @@ def demo_cet(dataset='t', model='X'):
 ```
 - Chạy thử mô phỏng đơn giản:
 ```bash
-cd source_code
+cd 02_Experiments/source_code
 python demo.py
 ```
 
-### Chạy thử framework CE:
+### Chạy thử CE:
 
 - Sử dụng các hàm khác nhau để kiểm tra và đánh giá framework CE.
 ```python
@@ -104,11 +104,23 @@ if(__name__ == '__main__'):
 
 - Chạy thử framework CE:
 ```bash
-cd 02_Experiments
-python source_code/ce.py
+cd 02_Experiments/source_code
+python ce.py
 ```
 
-### Chạy thử framework AReS:
+### Chạy thử baseline Clustering:
+- Chạy thử framework Clustering:
+```bash
+cd 02_Experiments/source_code
+python clustering.py
+```
+- Để thay đổi tập dữ liệu và số lượng cụm, chỉnh sửa tham số `dataset` và `N` trong hàm `_check` trong tệp `clustering.py`.
+```python
+if(__name__ == '__main__'):
+    _check(dataset='d', N=10) # Clustering baseline with 10 samples
+```
+
+### Chạy thử baseline AReS:
 - Sử dụng các hàm khác nhau để kiểm tra và đánh giá framework AReS.
 ```python
 if(__name__ == '__main__'):
@@ -118,11 +130,74 @@ if(__name__ == '__main__'):
     # Optimize hyperparameters for best performance
     _check_tuning(dataset='g', model='L', gamma=1.0)
 ```
-
 - Chạy thử framework AReS:
 ```bash
-cd 02_Experiments
-python source_code/ares.py
+cd 02_Experiments/source_code
+python ares.py
+```
+
+## Chạy các hàm so sánh
+
+### So sánh hiệu suất
+So sánh cả 3 framework CE, CET và AReS về độ chính xác, tốc độ và khả năng giải thích bằng phương pháp k-fold cross-validation.
+
+- Để thay đổi tập dữ liệu, mô hình và số lượng phân chia (từ 3 đến 10), chỉnh sửa tham số `dataset`, `model` và `k` trong hàm `compare_cv` trong tệp `exp.py`.
+```python
+if(__name__ == '__main__'):
+    # Basic comparison with 5-fold CV
+    compare_cv(dataset='g', model='L', n_splits=5)
+```
+- Chạy thử hàm so sánh:
+```bash
+cd 02_Experiments/source_code
+python exp.py
+```
+
+### So sánh độ phức tạp
+Phân tích mức độ thay đổi của độ phức tạp dựa trên số lượng hành động
+- Để thay đổi tập dữ liệu, mô hình và số lượng hành động, chỉnh sửa tham số `dataset`, `model`, `n_actions` và `lambdas` trong hàm `compare_comp` trong tệp `exp_complexity.py`.
+```python
+if(__name__ == '__main__'):
+    compare_comp(dataset='g', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
+    compare_comp(dataset='i', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
+```
+- Chạy thử hàm so sánh:
+```bash
+cd 02_Experiments/source_code
+python exp_complexity.py
+```
+
+### So sánh khả năng hội tụ
+Phân tích mức độ hội tụ của CET với các siêu tham số khác nhau
+
+- Để thay đổi tập dữ liệu, mô hình và tham số (regularization, trade-off), chỉnh sửa tham số `dataset`, `model`, `params` trong hàm `convergence` trong tệp `exp_convergence.py`.
+```python
+if(__name__ == '__main__'):
+    if(__name__ == '__main__'):
+    # Test different lambda values (regularization)
+    convergence(dataset='g', model='L', params=(0.01, 0.75))
+    convergence(dataset='g', model='L', params=(0.03, 0.75))
+    convergence(dataset='g', model='L', params=(0.05, 0.75))
+```
+- Chạy thử hàm so sánh:
+```bash
+cd 02_Experiments/source_code
+python exp_convergence.py
+```
+
+### So sánh độ nhạy tham số trade-off
+Phân tích độ nhạy của CET với các giá trị khác nhau của tham số trade-off
+- Để thay đổi tập dữ liệu, mô hình, số lượng trường hợp cần kiểm tra trong mỗi vòng lặp, số vòng lặp, danh sách các giá trị gamma cần kiểm tra; chỉnh sửa các tham số `dataset`, `model`, N, M, `gammas` trong hàm `sensitivity` trong tệp `exp_gamma.py`.
+```python
+if(__name__ == '__main__'):
+    # Basic sensitivity analysis
+    sensitivity(dataset='g', model='L', N=10, M=100, 
+                gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5])
+```
+- Chạy thử hàm so sánh:
+```bash
+cd 02_Experiments/source_code
+python exp_gamma.py
 ```
 
 # Cấu trúc thư mục
@@ -258,7 +333,6 @@ Triển khai framework AReS, cung cấp tóm tắt hành động hồi đáp dư
 - Đầu ra: tập hợp luật ứng viên cho hành động.
 
 3. `AReS`
-
 - Điều phối toàn bộ pipeline:
     - Khai phá luật từ dữ liệu phân đoạn.
     - Sinh ứng viên hành động.
@@ -271,4 +345,3 @@ Triển khai framework AReS, cung cấp tóm tắt hành động hồi đáp dư
 4. Các hàm tiện ích
 - Kiểm tra framework trên nhiều dataset & classifier (Logistic Regression, Random Forest, LightGBM, TabNet...).
 - Cho phép phân tích và so sánh hiệu quả luật hồi đáp giữa các mô hình.
-

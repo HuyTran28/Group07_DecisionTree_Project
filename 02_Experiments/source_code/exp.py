@@ -11,6 +11,8 @@ from cet import CounterfactualExplanationTree
 
 
 def compare_cv(dataset='g', model='L', n_splits=5):
+    import warnings
+    warnings.filterwarnings('ignore', message='X does not have valid feature names')
     np.random.seed(0)
     LAMBDA = HARES_PARAMS[dataset][model]['lambda']
     GAMMA = HARES_PARAMS[dataset][model]['gamma']
@@ -167,7 +169,7 @@ HARES_PARAMS = {'g':
 if(__name__ == '__main__'):
 
     compare_cv(dataset='i', model='X', n_splits=10)
-    compare_cv(dataset='g', model='X', n_splits=10)
-    compare_cv(dataset='i', model='T', n_splits=10)
-    compare_cv(dataset='g', model='T', n_splits=10)
+    # compare_cv(dataset='g', model='X', n_splits=10)
+    # compare_cv(dataset='i', model='T', n_splits=10)
+    # compare_cv(dataset='g', model='T', n_splits=10)
 
