@@ -92,6 +92,9 @@ def _instances_to_markdown(X, feature_names, feature_types, feature_categories):
 
 
 def demo(dataset='t', model='X'):
+    import warnings
+    warnings.filterwarnings('ignore', message='X does not have valid feature names')
+
     np.random.seed(0)
     LAMBDA = 0.01
     GAMMA = 1.0
@@ -161,7 +164,7 @@ def demo(dataset='t', model='X'):
     print(ares.to_markdown())
 
     print('## Counterfactual Explanation Tree')
-    cet = CounterfactualExplanationTree(mdl, X_tr, y_tr, max_iteration=1000, lime_approximation=(model!='L'),
+    cet = CounterfactualExplanationTree(mdl, X_tr, y_tr, max_iteration=100, lime_approximation=(model!='L'),
                                         feature_names=D.feature_names, feature_types=D.feature_types, feature_categories=D.feature_categories, 
                                         feature_constraints=D.feature_constraints, target_name=D.target_name, target_labels=D.target_labels)
     cet = cet.fit(X, max_change_num=2, cost_type='MPS', C=LAMBDA, gamma=GAMMA, max_leaf_size=4, time_limit=180)
@@ -211,4 +214,4 @@ def demo(dataset='t', model='X'):
 
 
 if(__name__ == '__main__'):
-    demo(model='X')
+    demo(dataset='i', model='L')

@@ -152,9 +152,9 @@ def compare_cv(dataset='g', model='L', n_splits=5):
 
 
 
-MAX_ITERATION = 1000
+MAX_ITERATION = 100
 COST_TYPE = 'MPS'
-MINSUP = {'g':0.05, 'i':0.05}
+MINSUP = {'g':0.05, 'i':0.05, 's': 0.05}
 ARES_PARAMS = {'g':
                     {'T': {'acc':1.0, 'cov':1.0, 'cst':0.01}, 
                      'X': {'acc':10.0, 'cov':1.0, 'cst':10.0},
@@ -162,7 +162,11 @@ ARES_PARAMS = {'g':
                'i':
                     {'T': {'acc':1.0, 'cov':1.0, 'cst':100.0}, 
                      'X': {'acc':1.0, 'cov':1.0, 'cst':0.01},
-                     'L': {'acc':1.0, 'cov':1.0, 'cst':10.0},}
+                     'L': {'acc':1.0, 'cov':1.0, 'cst':10.0},},
+               's':
+                    {'T': {'acc':1.0, 'cov':1.0, 'cst':0.01}, 
+                     'X': {'acc':10.0, 'cov':1.0, 'cst':10.0},
+                     'L': {'acc':10.0, 'cov':1.0, 'cst':100.0},}
                 }
 HARES_PARAMS = {'g':
                     {'T': {'lambda':0.02, 'gamma':1.0}, 
@@ -171,13 +175,17 @@ HARES_PARAMS = {'g':
                 'i':
                     {'T': {'lambda':0.02, 'gamma':1.0}, 
                      'X': {'lambda':0.02, 'gamma':1.0},
+                     'L': {'lambda':0.02, 'gamma':1.0},},
+                's':
+                    {'T': {'lambda':0.02, 'gamma':1.0}, 
+                     'X': {'lambda':0.02, 'gamma':1.0},
                      'L': {'lambda':0.02, 'gamma':1.0},}
                 }
 
 if(__name__ == '__main__'):
 
-    compare_cv(dataset='i', model='X', n_splits=5)
-    # compare_cv(dataset='g', model='X', n_splits=10)
+    # compare_cv(dataset='i', model='X', n_splits=5)
+    compare_cv(dataset='g', model='X', n_splits=5)
     # compare_cv(dataset='i', model='T', n_splits=10)
     # compare_cv(dataset='g', model='T', n_splits=10)
 

@@ -62,8 +62,8 @@ def plot_sens_comp(model='L', datasets=['i','g'], gamma=1.0):
             plt.plot(df['n_actions'], df['loss_test'], marker=MARKER[method], label='{}'.format(METHODS[method]))
         plt.xlabel(r'\#Actions', fontsize=14); plt.ylabel('Loss (test)', fontsize=14); plt.xticks([4,8,12,16,20], fontsize=12); plt.yticks(fontsize=12); plt.tight_layout(); 
         if(i==1): plt.legend(fontsize=12)
-    plt.savefig('../results/complexity/{}/tradeoff.png'.format(model), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('../results/complexity/{}/tradeoff.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff.png'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 # plot_sens_comp(model='L', datasets=['i', 'g'], gamma=1.0)
@@ -124,8 +124,8 @@ def plot_sens_comp_pareto_frontier(model='L', datasets=['i', 'g'], gamma=1.0):
         plt.xticks(fontsize=12); plt.yticks(fontsize=12); plt.tight_layout(); 
         if(i==1): plt.legend(fontsize=12)
 
-    plt.savefig('../results/complexity/{}/tradeoff_pareto.png'.format(model), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('../results/complexity/{}/tradeoff_pareto.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_pareto.png'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_pareto.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 plot_sens_comp_pareto_frontier(model='L', datasets=['i', 'g'], gamma=1.0)
@@ -143,8 +143,8 @@ def plot_sens_comp_all(model='L', dataset='i', gamma=1.0):
                 plt.plot(df['n_actions'], df[key1+'_'+key2], marker=MARKER[method], label='{}'.format(METHODS[method]))
             plt.xlabel(r'\#Actions'); plt.ylabel('{} ({})'.format('Invalidity' if key1=='obj' else key1.capitalize(), key2)); plt.xticks([4,8,12,16,20]); plt.tight_layout(); 
             if(i==1 and j==0): plt.legend()
-    plt.savefig('../results/complexity/{}/tradeoff_{}.png'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05); 
-    plt.savefig('../results/complexity/{}/tradeoff_{}.pdf'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05);
+    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_{}.png'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05); 
+    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_{}.pdf'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05);
     plt.clf()
 
 # plot_sens_comp_all(model='L', dataset='i', gamma=1.0)
@@ -164,8 +164,8 @@ def plot_sens_gamma(model='L', datasets=['i','g'], gammas=[0.1, 0.2, 0.3, 0.4, 0
         plt.xlabel(r'$\gamma$')
         if(i==0): plt.legend()
         plt.tight_layout()
-    plt.savefig('../results/gamma/{}/sensitivity.png'.format(model), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('../results/gamma/{}/sensitivity.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../../01_Report/figures/gamma/{}/sensitivity.png'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../../01_Report/figures/gamma/{}/sensitivity.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 # plot_sens_gamma()
