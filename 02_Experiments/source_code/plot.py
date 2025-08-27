@@ -46,7 +46,7 @@ def latex_compare_time(models=['X','T'], datasets=['i','g'], l=0.02, g=1.0):
 
 def plot_sens_comp(model='L', datasets=['i','g'], gamma=1.0):
     plt.rcParams["font.family"] = 'arial'
-    plt.rcParams['text.usetex'] = True
+    plt.rcParams['text.usetex'] = False
     plt.figure(figsize=(8,4))
     for i, dataset in enumerate(datasets):
         plt.subplot(2, 2, (i+1))
@@ -62,15 +62,15 @@ def plot_sens_comp(model='L', datasets=['i','g'], gamma=1.0):
             plt.plot(df['n_actions'], df['loss_test'], marker=MARKER[method], label='{}'.format(METHODS[method]))
         plt.xlabel(r'\#Actions', fontsize=14); plt.ylabel('Loss (test)', fontsize=14); plt.xticks([4,8,12,16,20], fontsize=12); plt.yticks(fontsize=12); plt.tight_layout(); 
         if(i==1): plt.legend(fontsize=12)
-    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff.png'.format(model), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/complexity/{}/tradeoff.png'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/complexity/{}/tradeoff.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
-# plot_sens_comp(model='L', datasets=['i', 'g'], gamma=1.0)
+# plot_sens_comp(model='X', datasets=['i'], gamma=1.0)
 
 def plot_sens_comp_pareto_frontier(model='L', datasets=['i', 'g'], gamma=1.0):
     plt.rcParams["font.family"] = 'arial'
-    plt.rcParams['text.usetex'] = True
+    plt.rcParams['text.usetex'] = False
     plt.figure(figsize=(8,2.75))
 
     for i, dataset in enumerate(datasets):
@@ -124,16 +124,16 @@ def plot_sens_comp_pareto_frontier(model='L', datasets=['i', 'g'], gamma=1.0):
         plt.xticks(fontsize=12); plt.yticks(fontsize=12); plt.tight_layout(); 
         if(i==1): plt.legend(fontsize=12)
 
-    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_pareto.png'.format(model), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_pareto.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/complexity/{}/tradeoff_pareto.png'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/complexity/{}/tradeoff_pareto.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
-plot_sens_comp_pareto_frontier(model='L', datasets=['i', 'g'], gamma=1.0)
+# plot_sens_comp_pareto_frontier(model='X', datasets=['i'], gamma=1.0)
 
 
 def plot_sens_comp_all(model='L', dataset='i', gamma=1.0):
     plt.rcParams["font.family"] = 'arial'
-    plt.rcParams['text.usetex'] = True
+    plt.rcParams['text.usetex'] = False
     plt.figure(figsize=(10,4))
     for j, key2 in enumerate(['train', 'test']):
         for i, key1 in enumerate(['cost', 'loss', 'obj']):
@@ -143,17 +143,17 @@ def plot_sens_comp_all(model='L', dataset='i', gamma=1.0):
                 plt.plot(df['n_actions'], df[key1+'_'+key2], marker=MARKER[method], label='{}'.format(METHODS[method]))
             plt.xlabel(r'\#Actions'); plt.ylabel('{} ({})'.format('Invalidity' if key1=='obj' else key1.capitalize(), key2)); plt.xticks([4,8,12,16,20]); plt.tight_layout(); 
             if(i==1 and j==0): plt.legend()
-    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_{}.png'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05); 
-    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_{}.pdf'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05);
+    plt.savefig('../results/complexity/{}/tradeoff_{}.png'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05); 
+    plt.savefig('../results/complexity/{}/tradeoff_{}.pdf'.format(model, DATASET[dataset]), bbox_inches='tight', pad_inches=0.05);
     plt.clf()
 
-# plot_sens_comp_all(model='L', dataset='i', gamma=1.0)
+# plot_sens_comp_all(model='X', dataset='i', gamma=1.0)
 # plot_sens_comp_all(model='L', dataset='g', gamma=1.0)
 
 
 def plot_sens_gamma(model='L', datasets=['i','g'], gammas=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]):
     plt.rcParams["font.family"] = 'arial'
-    plt.rcParams['text.usetex'] = True
+    plt.rcParams['text.usetex'] = False
     plt.figure(figsize=(8,2.5))
     for i, dataset in enumerate(datasets):
         plt.subplot(1, 2, i+1)
@@ -164,8 +164,8 @@ def plot_sens_gamma(model='L', datasets=['i','g'], gammas=[0.1, 0.2, 0.3, 0.4, 0
         plt.xlabel(r'$\gamma$')
         if(i==0): plt.legend()
         plt.tight_layout()
-    plt.savefig('../../01_Report/figures/gamma/{}/sensitivity.png'.format(model), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('../../01_Report/figures/gamma/{}/sensitivity.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/gamma/{}/sensitivity.png'.format(model), bbox_inches='tight', pad_inches=0.05)
+    plt.savefig('../results/gamma/{}/sensitivity.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 # plot_sens_gamma()
@@ -173,7 +173,7 @@ def plot_sens_gamma(model='L', datasets=['i','g'], gammas=[0.1, 0.2, 0.3, 0.4, 0
 
 def plot_sens_conv(model='L', dataset='g', gammas=[0.75, 1.0, 1.25], lambdas=[0.01, 0.03, 0.05]):
     plt.rcParams["font.family"] = 'arial'
-    plt.rcParams['text.usetex'] = True
+    plt.rcParams['text.usetex'] = False
     if(len(lambdas)==1):
         plt.figure(figsize=(6,6))
         res_name = '../results/convergence/{}/convergence_{}_partial'.format(model, DATASET[dataset])
@@ -195,6 +195,6 @@ def plot_sens_conv(model='L', dataset='g', gammas=[0.75, 1.0, 1.25], lambdas=[0.
     plt.savefig(res_name+'.pdf', bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
-# plot_sens_conv(dataset='g', gammas=[0.75, 1.0, 1.25], lambdas=[0.01, 0.03, 0.05])
+# plot_sens_conv(dataset='g', gammas=[0.75], lambdas=[0.01, 0.03, 0.05])
 # plot_sens_conv(dataset='i', gammas=[0.75, 1.0, 1.25], lambdas=[0.01, 0.03, 0.05])
 
