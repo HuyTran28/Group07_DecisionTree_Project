@@ -43,7 +43,7 @@ def convergence(dataset='g', model='L', params=(0.01, 1.0)):
 
 
 
-MAX_ITERATION = 1000
+MAX_ITERATION = 100
 COST_TYPE = 'MPS'
 
 if(__name__ == '__main__'):

@@ -117,7 +117,7 @@ def compare_comp(dataset='g', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[
     pd.DataFrame(dict_ares).to_csv('../results/complexity/{}/ares_{}_{}.csv'.format(model, D.dataset_name, GAMMA), index=False)
     pd.DataFrame(dict_cet).to_csv('../results/complexity/{}/cet_{}_{}.csv'.format(model, D.dataset_name, GAMMA), index=False)
 
-MAX_ITERATION = 1000
+MAX_ITERATION = 100
 COST_TYPE = 'MPS'
 MINSUP = {'g':0.05, 'i':0.05}
 ARES_PARAMS = {'g':

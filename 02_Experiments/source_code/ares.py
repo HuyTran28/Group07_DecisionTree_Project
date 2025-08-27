@@ -587,7 +587,7 @@ def _check(dataset='h', model='L'):
     elif(model=='X'):
         print('* Classifier: LightGBM')
         from lightgbm import LGBMClassifier
-        mdl = LGBMClassifier(n_estimators=100, num_leaves=16, class_weight='balanced', device='gpu')
+        mdl = LGBMClassifier(n_estimators=100, num_leaves=16, class_weight='balanced')
         print('\t* n_estimators: {}'.format(mdl.n_estimators)); print('\t* num_leaves: {}'.format(mdl.num_leaves));
     elif(model=='T'):
         print('* Classifier: TabNet')
