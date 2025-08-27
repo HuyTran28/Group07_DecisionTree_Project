@@ -15,6 +15,7 @@
 | Recourse <br> rule 4 <br> (probability: 18.0%) | If 'OverTime=True' <br> AND 'JobRole:SalesExecutive' | OverTime=False <br> AND JobRole:HealthcareRepresentative |    
 | Default <br> rule | Else | OverTime=False <br> AND 2<=YearsInCurrentRole<3 <br> AND 2<=YearsWithCurrManager<3 <br> AND MaritalStatus:Married |
 
+### Learned CET
 | | HowToChange |
 | --- | :--- |
 | Action 1 | MonthlyIncome: 2319 -> 2544 (+225) <br>(Acc: True / Cost: 0.0293) |
