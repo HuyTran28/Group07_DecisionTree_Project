@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
@@ -115,6 +116,8 @@ def compare_cv(dataset='g', model='L', n_splits=5):
         print('- Test:'); print('\t- cost: {}'.format(cet_cost)); print('\t- loss: {}'.format(cet_loss)); print('\t- obj.: {}'.format(cet_cost + GAMMA * cet_loss));
         dict_cet['time'].append(cet.time_); dict_cet['n_actions'].append(cet.n_leaves_);
         print()
+        output_dir = f'../results/compare/{model}/convergence'
+        os.makedirs(output_dir, exist_ok=True)
         pd.DataFrame(cet.objs_).to_csv('../results/compare/{}/convergence/cet_{}_objective_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA, k), index=False)
 
 
@@ -138,13 +141,17 @@ def compare_cv(dataset='g', model='L', n_splits=5):
     print('- AReS      :', np.mean(dict_ares['n_actions'])); 
     print('- CET       :', np.mean(dict_cet['n_actions']));
     print(); print();
+
+    output_dir = f'../results/compare/{model}'
+    os.makedirs(output_dir, exist_ok=True)
+
     pd.DataFrame(dict_clustering).to_csv('../results/compare/{}/clustering_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA), index=False)
     pd.DataFrame(dict_ares).to_csv('../results/compare/{}/ares_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA), index=False)
     pd.DataFrame(dict_cet).to_csv('../results/compare/{}/cet_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA), index=False)
 
 
 
-MAX_ITERATION = 3000
+MAX_ITERATION = 1000
 COST_TYPE = 'MPS'
 MINSUP = {'g':0.05, 'i':0.05}
 ARES_PARAMS = {'g':
@@ -168,7 +175,7 @@ HARES_PARAMS = {'g':
 
 if(__name__ == '__main__'):
 
-    compare_cv(dataset='i', model='X', n_splits=10)
+    compare_cv(dataset='i', model='X', n_splits=5)
     # compare_cv(dataset='g', model='X', n_splits=10)
     # compare_cv(dataset='i', model='T', n_splits=10)
     # compare_cv(dataset='g', model='T', n_splits=10)

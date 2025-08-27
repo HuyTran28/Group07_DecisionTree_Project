@@ -11,6 +11,7 @@ from sklearn.neighbors import KDTree
 from ce import ActionExtractor
 from utils import DatasetHelper, synthetic_dataset
 
+import os
 
 def sensitivity(dataset='g', model='L', N=10, M=100, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5], choice='neighbor'):
     np.random.seed(0)
@@ -62,17 +63,17 @@ def sensitivity(dataset='g', model='L', N=10, M=100, gammas=[0.25, 0.5, 0.75, 1.
             res['cost'].append(c); res['loss'].append(l); res['obj'].append(o)
         print()
     print(); print();
+
+    output_dir = f'../results/gamma/{model}'
+    os.makedirs(output_dir, exist_ok=True)
+
     pd.DataFrame(res).to_csv('../results/gamma/{}/sensitivity_{}.csv'.format(model, D.dataset_name), index=False)
-
-
-
-
 
 COST_TYPE = 'MPS'
 
 if(__name__ == '__main__'):
 
     sensitivity(dataset='i', model='L', N=10, M=100, gammas=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
-    sensitivity(dataset='g', model='L', N=10, M=100, gammas=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    # sensitivity(dataset='g', model='L', N=10, M=100, gammas=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
     # sensitivity(dataset='i', model='L', N=10, M=100, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])
     # sensitivity(dataset='g', model='L', N=10, M=100, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])

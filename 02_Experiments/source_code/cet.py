@@ -56,13 +56,13 @@ class Node():
         if(self.is_leaf()):
             return self.objective / self.sample.shape[0]
         else:
-            return (self.left.getObjective() + self.left.getObjective()) / self.sample.shape[0]
+            return (self.left.getObjective() + self.right.getObjective()) / self.sample.shape[0]
 
     def getLoss(self):
         if(self.is_leaf()):
             return (self.sample.shape[0] - self.active) / self.sample.shape[0]
         else:
-            return (self.left.getLoss() + self.left.getLoss()) / self.sample.shape[0]
+            return (self.left.getLoss() + self.right.getLoss()) / self.sample.shape[0]
 
     def setIndex(self, idx):
         self.idx = idx
@@ -271,7 +271,7 @@ class CounterfactualExplanationTree():
             node = stack.pop()
             if(node.is_leaf()):
                 if(node.is_infeasible):
-                    return np.inf
+                    return np.inf, 0, 0, 0
                 else:
                     g += node.objective / self.N_; cost += node.cost / self.N_; acts += node.active / self.N_;
                     comp += 1

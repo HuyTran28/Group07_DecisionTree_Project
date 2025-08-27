@@ -8,6 +8,7 @@ from ares import AReS
 from clustering import Clustering
 from cet import CounterfactualExplanationTree
 
+import os
 
 def compare_comp(dataset='g', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[0.01, 0.02, 0.03, 0.04, 0.05]):
     np.random.seed(0)
@@ -109,15 +110,14 @@ def compare_comp(dataset='g', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[
         dict_cet['n_actions'].append(cet.n_leaves_);
         print()
 
+    output_dir = f'../results/complexity/{model}'
+    os.makedirs(output_dir, exist_ok=True)
+
     pd.DataFrame(dict_clustering).to_csv('../results/complexity/{}/clustering_{}_{}.csv'.format(model, D.dataset_name, GAMMA), index=False)
     pd.DataFrame(dict_ares).to_csv('../results/complexity/{}/ares_{}_{}.csv'.format(model, D.dataset_name, GAMMA), index=False)
     pd.DataFrame(dict_cet).to_csv('../results/complexity/{}/cet_{}_{}.csv'.format(model, D.dataset_name, GAMMA), index=False)
 
-
-
-
-
-MAX_ITERATION = 10000
+MAX_ITERATION = 1000
 COST_TYPE = 'MPS'
 MINSUP = {'g':0.05, 'i':0.05}
 ARES_PARAMS = {'g':

@@ -4,7 +4,7 @@ from sklearn.linear_model import LogisticRegression
 from lightgbm import LGBMClassifier
 from utils import MyTabNetClassifier, DatasetHelper
 from cet import CounterfactualExplanationTree
-
+import os
 
 def convergence(dataset='g', model='L', params=(0.01, 1.0)):
     np.random.seed(0)
@@ -37,11 +37,13 @@ def convergence(dataset='g', model='L', params=(0.01, 1.0)):
     cet = cet.fit(X, max_change_num=3, cost_type=COST_TYPE, C=l, gamma=g, time_limit=60, verbose=True)
     print('## Learned CET')
     cet.print_tree()
+    output_dir = f'../results/convergence/{model}'
+    os.makedirs(output_dir, exist_ok=True)
     pd.DataFrame(cet.objs_).to_csv('../results/convergence/{}/cet_{}_objective_{}_{}.csv'.format(model, D.dataset_name, l, g), index=False)
 
 
 
-MAX_ITERATION = 10000
+MAX_ITERATION = 1000
 COST_TYPE = 'MPS'
 
 if(__name__ == '__main__'):
@@ -50,25 +52,25 @@ if(__name__ == '__main__'):
     convergence(dataset='g', model='L', params=(0.03, 0.75))
     convergence(dataset='g', model='L', params=(0.05, 0.75))
 
-    convergence(dataset='g', model='L', params=(0.01, 1.0))
-    convergence(dataset='g', model='L', params=(0.03, 1.0))
-    convergence(dataset='g', model='L', params=(0.05, 1.0))
+    # convergence(dataset='g', model='L', params=(0.01, 1.0))
+    # convergence(dataset='g', model='L', params=(0.03, 1.0))
+    # convergence(dataset='g', model='L', params=(0.05, 1.0))
 
-    convergence(dataset='g', model='L', params=(0.01, 1.25))
-    convergence(dataset='g', model='L', params=(0.03, 1.25))
-    convergence(dataset='g', model='L', params=(0.05, 1.25))
+    # convergence(dataset='g', model='L', params=(0.01, 1.25))
+    # convergence(dataset='g', model='L', params=(0.03, 1.25))
+    # convergence(dataset='g', model='L', params=(0.05, 1.25))
 
 
-    convergence(dataset='i', model='L', params=(0.01, 0.75))
-    convergence(dataset='i', model='L', params=(0.03, 0.75))
-    convergence(dataset='i', model='L', params=(0.05, 0.75))
+    # convergence(dataset='i', model='L', params=(0.01, 0.75))
+    # convergence(dataset='i', model='L', params=(0.03, 0.75))
+    # convergence(dataset='i', model='L', params=(0.05, 0.75))
 
-    convergence(dataset='i', model='L', params=(0.01, 1.0))
-    convergence(dataset='i', model='L', params=(0.03, 1.0))
-    convergence(dataset='i', model='L', params=(0.05, 1.0))
+    # convergence(dataset='i', model='L', params=(0.01, 1.0))
+    # convergence(dataset='i', model='L', params=(0.03, 1.0))
+    # convergence(dataset='i', model='L', params=(0.05, 1.0))
 
-    convergence(dataset='i', model='L', params=(0.01, 1.25))
-    convergence(dataset='i', model='L', params=(0.03, 1.25))
-    convergence(dataset='i', model='L', params=(0.05, 1.25))
+    # convergence(dataset='i', model='L', params=(0.01, 1.25))
+    # convergence(dataset='i', model='L', params=(0.03, 1.25))
+    # convergence(dataset='i', model='L', params=(0.05, 1.25))
 
 
