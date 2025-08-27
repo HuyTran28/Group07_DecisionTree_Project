@@ -5,6 +5,8 @@ from lightgbm import LGBMClassifier
 from utils import MyTabNetClassifier, DatasetHelper
 from cet import CounterfactualExplanationTree
 import os
+import warnings
+warnings.filterwarnings("ignore", message="X does not have valid feature names")
 
 def convergence(dataset='g', model='L', params=(0.01, 1.0)):
     np.random.seed(0)

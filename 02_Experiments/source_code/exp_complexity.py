@@ -7,6 +7,8 @@ from utils import MyTabNetClassifier, DatasetHelper
 from ares import AReS
 from clustering import Clustering
 from cet import CounterfactualExplanationTree
+import warnings
+warnings.filterwarnings("ignore", message="X does not have valid feature names")
 
 import os
 

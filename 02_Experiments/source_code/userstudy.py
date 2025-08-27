@@ -8,7 +8,8 @@ from clustering import Clustering
 from cet import CounterfactualExplanationTree
 from ce import ActionExtractor
 from utils import DatasetHelper, submodular_picking
-
+import warnings
+warnings.filterwarnings("ignore", message="X does not have valid feature names")
 
 def instance_to_markdown(x, feature_names, feature_types, feature_categories):
     s = '| | Feature | Value |\n'

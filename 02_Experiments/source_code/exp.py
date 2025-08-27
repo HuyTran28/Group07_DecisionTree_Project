@@ -9,7 +9,8 @@ from sklearn.model_selection import StratifiedKFold
 from ares import AReS
 from clustering import Clustering
 from cet import CounterfactualExplanationTree
-
+import warnings
+warnings.filterwarnings("ignore", message="X does not have valid feature names")
 
 def compare_cv(dataset='g', model='L', n_splits=5):
     import warnings
@@ -49,7 +50,7 @@ def compare_cv(dataset='g', model='L', n_splits=5):
 
 
         print('### Clusterwise Actionable Recourse Summary')
-        clustering = Clustering(mdl, X_tr, Y=y_tr, n_clusters=8, print_centers=True, lime_approximation=(model!='L'),
+        clustering = Clustering(mdl, X_tr, Y=y_tr, n_clusters=2, print_centers=True, lime_approximation=(model!='L'),
                         feature_names=D.feature_names, feature_types=D.feature_types, feature_categories=D.feature_categories, 
                         feature_constraints=D.feature_constraints, target_name=D.target_name, target_labels=D.target_labels)
         clustering = clustering.fit(X, max_change_num=3, cost_type=COST_TYPE, gamma=GAMMA, time_limit=180)
@@ -70,7 +71,7 @@ def compare_cv(dataset='g', model='L', n_splits=5):
 
 
         print('### Actionable Recourse Summary')
-        ares = AReS(mdl, X_tr, max_rule=8, max_rule_length=4, minimum_support=MINSUP[dataset], discretization_bins=10,
+        ares = AReS(mdl, X_tr, max_rule=4, max_rule_length=2, minimum_support=MINSUP[dataset], discretization_bins=10,
                     feature_names=D.feature_names, feature_types=D.feature_types, feature_categories=D.feature_categories, 
                     feature_constraints=D.feature_constraints, target_name=D.target_name, target_labels=D.target_labels)
         ares = ares.fit(X, max_change_num=3, cost_type=COST_TYPE, lambda_acc=ARES_PARAMS[dataset][model]['acc'], lambda_cov=ARES_PARAMS[dataset][model]['cov'], lambda_cst=ARES_PARAMS[dataset][model]['cst'])

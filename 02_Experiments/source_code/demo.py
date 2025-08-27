@@ -1,5 +1,6 @@
 import numpy as np
 import warnings
+warnings.filterwarnings("ignore", message="X does not have valid feature names")
 from sklearn.linear_model import LogisticRegression
 from lightgbm import LGBMClassifier
 from utils import MyTabNetClassifier, DatasetHelper
@@ -28,7 +29,7 @@ def demo_cet(dataset='t', model='X'):
         print('\t* C: {}'.format(mdl.C)); print('\t* penalty: {}'.format(mdl.penalty));
     elif(model=='X'):
         print('* Classifier: LightGBM')
-        mdl = LGBMClassifier(n_estimators=100, num_leaves=16)
+        mdl = LGBMClassifier(n_estimators=50, num_leaves=8)
         print('\t* n_estimators: {}'.format(mdl.n_estimators)); print('\t* num_leaves: {}'.format(mdl.num_leaves));
     elif(model=='T'):
         print('* Classifier: TabNet')
@@ -41,10 +42,10 @@ def demo_cet(dataset='t', model='X'):
     print('\t* test score: ', mdl.score(X_ts, y_ts)); print('\t* test denied: ', X_vl.shape[0]); print();
 
     print('## Counterfactual Explanation Tree (CET)')
-    cet = CounterfactualExplanationTree(mdl, X_tr, y_tr, max_iteration=100, lime_approximation=(model!='L'),
+    cet = CounterfactualExplanationTree(mdl, X_tr, y_tr, max_iteration=50, lime_approximation=(model!='L'),
                                         feature_names=D.feature_names, feature_types=D.feature_types, feature_categories=D.feature_categories, 
                                         feature_constraints=D.feature_constraints, target_name=D.target_name, target_labels=D.target_labels)
-    cet = cet.fit(X_vl, max_change_num=1, cost_type='MPS', C=LAMBDA, gamma=GAMMA, max_leaf_size=3, time_limit=180)
+    cet = cet.fit(X_vl, max_change_num=1, cost_type='MPS', C=LAMBDA, gamma=GAMMA, max_leaf_size=5, time_limit=60)
     print('* Parameters:'); print('\t* lambda: {}'.format(cet.lambda_)); print('\t* gamma: {}'.format(cet.gamma_)); print('\t* max_iteration: {}'.format(cet.max_iteration_));
     print('\t* leaf size bound:', cet.leaf_size_bound_); print('\t* LIME approximation:', cet.lime_approximation_); print('\t* leaf size:', cet.n_leaves_); print('\t* Time[s]:', cet.time_); print();
     print('### Learned CET')
@@ -65,7 +66,7 @@ def demo_random_ce(dataset='t', model='X'):
         mdl = LogisticRegression(penalty='l2', C=1.0, solver='liblinear')
     elif(model=='X'):
         print('* Classifier: LightGBM')
-        mdl = LGBMClassifier(n_estimators=100, num_leaves=16)
+        mdl = LGBMClassifier(n_estimators=50, num_leaves=8)
     elif(model=='T'):
         print('* Classifier: TabNet')
         mdl = MyTabNetClassifier(D.feature_types, verbose=0)
@@ -103,7 +104,7 @@ def demo_compare_methods(dataset='t', model='X'):
     if(model=='L'):
         mdl = LogisticRegression(penalty='l2', C=1.0, solver='liblinear')
     elif(model=='X'):
-        mdl = LGBMClassifier(n_estimators=100, num_leaves=16)
+        mdl = LGBMClassifier(n_estimators=50, num_leaves=8)
     elif(model=='T'):
         mdl = MyTabNetClassifier(D.feature_types, verbose=0)
 
@@ -123,11 +124,11 @@ def demo_compare_methods(dataset='t', model='X'):
     # ================= CET =================
     start = time.time()
     cet = CounterfactualExplanationTree(
-        mdl, X_tr, y_tr, max_iteration=100, lime_approximation=(model != 'L'),
+        mdl, X_tr, y_tr, max_iteration=50, lime_approximation=(model != 'L'),
         feature_names=D.feature_names, feature_types=D.feature_types, feature_categories=D.feature_categories,
         feature_constraints=D.feature_constraints, target_name=D.target_name, target_labels=D.target_labels
     )
-    cet = cet.fit(X_vl, max_change_num=1, cost_type='MPS', C=LAMBDA, gamma=GAMMA, max_leaf_size=3, time_limit=180)
+    cet = cet.fit(X_vl, max_change_num=1, cost_type='MPS', C=LAMBDA, gamma=GAMMA, max_leaf_size=5, time_limit=60)
     end = time.time()
 
     A_cet = cet.predict(X_vl)

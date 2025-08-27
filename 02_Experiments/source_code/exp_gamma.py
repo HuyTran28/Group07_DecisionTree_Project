@@ -10,7 +10,8 @@ from sklearn.neighbors import KDTree
 
 from ce import ActionExtractor
 from utils import DatasetHelper, synthetic_dataset
-
+import warnings
+warnings.filterwarnings("ignore", message="X does not have valid feature names")
 import os
 
 def sensitivity(dataset='g', model='L', N=10, M=100, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5], choice='neighbor'):
