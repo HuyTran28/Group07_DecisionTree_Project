@@ -9,7 +9,16 @@ from cet import CounterfactualExplanationTree
 from ce import ActionExtractor
 from utils import DatasetHelper, submodular_picking
 import warnings
+import os
 warnings.filterwarnings("ignore", message="X does not have valid feature names")
+
+# Global variable to store markdown content
+markdown_content = ""
+
+def write_to_markdown(text):
+    """Helper function to write text to markdown content only"""
+    global markdown_content
+    markdown_content += text + "\n"
 
 def instance_to_markdown(x, feature_names, feature_types, feature_categories):
     s = '| | Feature | Value |\n'
@@ -18,8 +27,8 @@ def instance_to_markdown(x, feature_names, feature_types, feature_categories):
     for d, x_d in enumerate(x):
         if(d not in sum(feature_categories, [])):
             if(feature_types[d]=='C'):
-                s += '| {} | {} | {.4f} |\n'.format(i, feature_names[d], x_d) 
-            if(feature_types[d]=='B'):
+                s += '| {} | {} | {:.4f} |\n'.format(i, feature_names[d], x_d) 
+            elif(feature_types[d]=='B'):
                 s += '| {} | {} | {} |\n'.format(i, feature_names[d], bool(x_d)) 
             else:
                 s += '| {} | {} | {} |\n'.format(i, feature_names[d], int(x_d))
@@ -54,9 +63,9 @@ def actions_to_markdown(action_dicts, x, feature_names, feature_types, feature_c
                     s += '{}: {:.4f} -> {:.4f} ({:+.4f}) <br>'.format(feature_names[d], x[d], x[d]+a[d], a[d])
                 elif(feature_types[d]=='B'):
                     if(a[d]==-1):
-                        s += '{}: True -> False <br> '.format(feature_names[d], a[d])
+                        s += '{}: True -> False <br> '.format(feature_names[d])
                     else:
-                        s += '{}: False -> True <br> '.format(feature_names[d], a[d])
+                        s += '{}: False -> True <br> '.format(feature_names[d])
                 else:
                     s += '{}: {} -> {} ({:+}) <br>'.format(feature_names[d], x[d].astype(int), x[d].astype(int)+a[d].astype(int), a[d].astype(int))
             else:
@@ -75,11 +84,11 @@ def _instances_to_markdown(X, feature_names, feature_types, feature_categories):
     s += '|\n| --: ' + '| --: '*X.shape[0] + '|\n'
     for d, X_d in enumerate(X.T):
         if(d in sum(feature_categories, [])):
-            s += '| {} '.fomrat(feature_names[d])
+            s += '| {} '.format(feature_names[d])
             for x_d in X_d:
                 if(feature_types[d]=='C'):
-                    s += '| {.4f} '.format(x_d) 
-                if(feature_types[d]=='B'):
+                    s += '| {:.4f} '.format(x_d) 
+                elif(feature_types[d]=='B'):
                     s += '| {} '.format(bool(x_d)) 
                 else:
                     s += '| {} '.format(int(x_d))
@@ -101,8 +110,11 @@ def demo(dataset='t', model='X'):
 
     D = DatasetHelper(dataset=dataset, feature_prefix_index=False)
     print('# Demonstration:', D.dataset_fullname)
-    # for d in range(D.n_features): print('\t* x_{:<2}: {} ({}{})'.format(d+1, D.feature_names[d], D.feature_types[d], ':'+D.feature_constraints[d] if D.feature_constraints[d]!='' else ''))
     print(D.to_markdown())
+
+    # Write dataset info to markdown
+    write_to_markdown('# Demonstration: {}'.format(D.dataset_fullname))
+    write_to_markdown(D.to_markdown())
 
     if(model=='L'):
         print('* Classifier: LogisticRegression')
@@ -122,7 +134,6 @@ def demo(dataset='t', model='X'):
     print('\t* train score: ', mdl.score(X_tr, y_tr)); print('\t* train denied: ', X.shape[0]); 
     print('\t* test score: ', mdl.score(X_ts, y_ts)); print('\t* test denied: ', X_vl.shape[0]); print();
 
-
     print('## Submodular Pick')
     ce = ActionExtractor(mdl, X_tr, Y=y_tr, max_candidates=100,
                          feature_names=D.feature_names, feature_types=D.feature_types, feature_categories=D.feature_categories, 
@@ -139,7 +150,6 @@ def demo(dataset='t', model='X'):
         print(instance_to_markdown(x, D.feature_names, D.feature_types, D.feature_categories))
         print(actions_to_markdown([action_dict], x, D.feature_names, D.feature_types, D.feature_categories))
 
-
     print('## Clustering')
     clustering = Clustering(mdl, X_tr, Y=y_tr, n_clusters=4, print_centers=True, lime_approximation=(model!='L'),
                             feature_names=D.feature_names, feature_types=D.feature_types, feature_categories=D.feature_categories, 
@@ -149,6 +159,10 @@ def demo(dataset='t', model='X'):
     print('\t* LIME approximation:', clustering.lime_approximation_); print('\t* Time[s]:', clustering.time_); print();
     print('### Learned Clustering')
     print(clustering.to_markdown())
+    
+    # Write clustering results to markdown
+    write_to_markdown('## Learned Clustering Results')
+    write_to_markdown(clustering.to_markdown())
 
     print('## Actionable Recourse Summary')
     ares = AReS(mdl, X_tr, max_rule=4, max_rule_length=4, minimum_support=0.05, discretization_bins=10, print_objective=False,
@@ -162,6 +176,10 @@ def demo(dataset='t', model='X'):
     print('\t* uncover test: {}'.format(ares.uncover(X_vl))); print('\t* conflict: {}'.format(ares.conflict(X_vl))); print();
     print('### Learned AReS')
     print(ares.to_markdown())
+    
+    # Write AReS results to markdown
+    write_to_markdown('## Learned AReS Results')
+    write_to_markdown(ares.to_markdown())
 
     print('## Counterfactual Explanation Tree')
     cet = CounterfactualExplanationTree(mdl, X_tr, y_tr, max_iteration=100, lime_approximation=(model!='L'),
@@ -172,6 +190,20 @@ def demo(dataset='t', model='X'):
     print('\t* leaf size bound:', cet.leaf_size_bound_); print('\t* leaf size:', cet.n_leaves_); print('\t* LIME approximation:', cet.lime_approximation_); print('\t* Time[s]:', cet.time_); print();
     print('### Learned CET')
     cet.print_tree()
+    
+    # Write CET results to markdown
+    write_to_markdown('## Learned CET Results')
+    # Capture the tree output
+    import io
+    import sys
+    old_stdout = sys.stdout
+    sys.stdout = buffer = io.StringIO()
+    cet.print_tree()
+    tree_output = buffer.getvalue()
+    sys.stdout = old_stdout
+    write_to_markdown("```")
+    write_to_markdown(tree_output.strip())
+    write_to_markdown("```")
 
     print('## Question')
     i_candidates = []; optimal_actions = [];
@@ -211,7 +243,33 @@ def demo(dataset='t', model='X'):
         print(instance_to_markdown(x, D.feature_names, D.feature_types, D.feature_categories))
         print(actions_to_markdown(actions_dicts, x, D.feature_names, D.feature_types, D.feature_categories))
 
-
+def save_markdown_file(dataset, model):
+    """Save the accumulated markdown content to a file"""
+    global markdown_content
+    
+    # Create results directory if it doesn't exist
+    results_dir = '../results/userstudy'
+    os.makedirs(results_dir, exist_ok=True)
+    
+    # Use the same naming convention as exp_convergence.py
+    filename = f"userstudy_{dataset}_{model}.md"
+    filepath = os.path.join(results_dir, filename)
+    
+    # Write to file
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(markdown_content)
+    
+    print(f"\nLearned results saved to: {filepath}")
 
 if(__name__ == '__main__'):
-    demo(dataset='i', model='L')
+    datasets = ['d', 'w', 'i', 'g', 'c']
+    model = 'L'
+    
+    for dataset in datasets:
+        # Initialize markdown content for each dataset
+        markdown_content = f"# Learned Results Summary - Dataset {dataset}\n\n"
+        
+        demo(dataset=dataset, model=model)
+        
+        # Save results for this dataset
+        save_markdown_file(dataset, model)

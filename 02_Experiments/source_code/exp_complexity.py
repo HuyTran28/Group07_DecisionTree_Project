@@ -121,12 +121,16 @@ def compare_comp(dataset='g', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[
 
 MAX_ITERATION = 100
 COST_TYPE = 'MPS'
-MINSUP = {'g':0.05, 'i':0.05}
+MINSUP = {'g':0.05, 'i':0.05, 'd': 0.05}
 ARES_PARAMS = {'g':
                     {'T': {'acc':1.0, 'cov':1.0, 'cst':0.01}, 
                      'X': {'acc':10.0, 'cov':1.0, 'cst':10.0},
                      'L': {'acc':10.0, 'cov':1.0, 'cst':100.0},}, 
                'i':
+                    {'T': {'acc':1.0, 'cov':1.0, 'cst':100.0}, 
+                     'X': {'acc':1.0, 'cov':1.0, 'cst':0.01},
+                     'L': {'acc':1.0, 'cov':1.0, 'cst':10.0},},
+                'd':
                     {'T': {'acc':1.0, 'cov':1.0, 'cst':100.0}, 
                      'X': {'acc':1.0, 'cov':1.0, 'cst':0.01},
                      'L': {'acc':1.0, 'cov':1.0, 'cst':10.0},}
@@ -135,6 +139,9 @@ GAMMA = 1.0
 
 if(__name__ == '__main__'):
 
-    # compare_comp(dataset='i', model='X', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
+    # compare_comp(dataset='d', model='X', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
+    compare_comp(dataset='d', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
+    compare_comp(dataset='g', model='X', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
     compare_comp(dataset='g', model='L', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
+    # compare_comp(dataset='i', model='X', n_actions=[4, 8, 12, 16, 20], lambdas=[0.05, 0.04, 0.03, 0.02, 0.01])
 

@@ -45,14 +45,18 @@ def convergence(dataset='g', model='L', params=(0.01, 1.0)):
 
 
 
-MAX_ITERATION = 100
+MAX_ITERATION = 1000
 COST_TYPE = 'MPS'
 
 if(__name__ == '__main__'):
 
-    convergence(dataset='g', model='L', params=(0.01, 0.75))
-    convergence(dataset='g', model='L', params=(0.03, 0.75))
-    convergence(dataset='g', model='L', params=(0.05, 0.75))
+    # convergence(dataset='d', model='L', params=(0.01, 0.75))
+    # convergence(dataset='d', model='L', params=(0.03, 0.75))
+    convergence(dataset='d', model='L', params=(0.05, 0.75))
+
+    # convergence(dataset='g', model='L', params=(0.01, 0.75))
+    # convergence(dataset='g', model='L', params=(0.03, 0.75))
+    # convergence(dataset='g', model='L', params=(0.05, 0.75))
 
     # convergence(dataset='g', model='L', params=(0.01, 1.0))
     # convergence(dataset='g', model='L', params=(0.03, 1.0))
@@ -63,9 +67,9 @@ if(__name__ == '__main__'):
     # convergence(dataset='g', model='L', params=(0.05, 1.25))
 
 
-    # convergence(dataset='i', model='L', params=(0.01, 0.75))
-    # convergence(dataset='i', model='L', params=(0.03, 0.75))
-    # convergence(dataset='i', model='L', params=(0.05, 0.75))
+    convergence(dataset='i', model='L', params=(0.01, 0.75))
+    convergence(dataset='i', model='L', params=(0.03, 0.75))
+    convergence(dataset='i', model='L', params=(0.05, 0.75))
 
     # convergence(dataset='i', model='L', params=(0.01, 1.0))
     # convergence(dataset='i', model='L', params=(0.03, 1.0))

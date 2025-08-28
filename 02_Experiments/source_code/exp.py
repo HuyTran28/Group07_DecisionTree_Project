@@ -39,6 +39,7 @@ def compare_cv(dataset='g', model='L', n_splits=5):
     dict_clustering = {'cost_train':[], 'loss_train':[], 'obj_train':[], 'cost_test':[], 'loss_test':[], 'obj_test':[], 'time':[], 'n_actions':[]}
     dict_ares = {'cost_train':[], 'loss_train':[], 'obj_train':[], 'cost_test':[], 'loss_test':[], 'obj_test':[], 'time':[], 'n_actions':[], 'uncover_train':[], 'conflict_train':[], 'uncover_test':[], 'conflict_test':[]}
     dict_cet = {'cost_train':[], 'loss_train':[], 'obj_train':[], 'cost_test':[], 'loss_test':[], 'obj_test':[], 'time':[], 'n_actions':[]}
+    
     k = 1; 
     for train, test in StratifiedKFold(n_splits=n_splits).split(D.X, D.y):
         print(); print('## Fold: k = {}'.format(k)); 
@@ -121,9 +122,7 @@ def compare_cv(dataset='g', model='L', n_splits=5):
         os.makedirs(output_dir, exist_ok=True)
         pd.DataFrame(cet.objs_).to_csv('../results/compare/{}/convergence/cet_{}_objective_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA, k), index=False)
 
-
         k += 1
-
 
     print('## Overall Score:')
     for title, key1 in zip(['Train Performance', 'Test Performance'], ['train', 'test']):
@@ -152,9 +151,9 @@ def compare_cv(dataset='g', model='L', n_splits=5):
 
 
 
-MAX_ITERATION = 100
+MAX_ITERATION = 1000
 COST_TYPE = 'MPS'
-MINSUP = {'g':0.05, 'i':0.05, 's': 0.05}
+MINSUP = {'g':0.05, 'i':0.05, 'd': 0.05}
 ARES_PARAMS = {'g':
                     {'T': {'acc':1.0, 'cov':1.0, 'cst':0.01}, 
                      'X': {'acc':10.0, 'cov':1.0, 'cst':10.0},
@@ -163,7 +162,7 @@ ARES_PARAMS = {'g':
                     {'T': {'acc':1.0, 'cov':1.0, 'cst':100.0}, 
                      'X': {'acc':1.0, 'cov':1.0, 'cst':0.01},
                      'L': {'acc':1.0, 'cov':1.0, 'cst':10.0},},
-               's':
+               'd':
                     {'T': {'acc':1.0, 'cov':1.0, 'cst':0.01}, 
                      'X': {'acc':10.0, 'cov':1.0, 'cst':10.0},
                      'L': {'acc':10.0, 'cov':1.0, 'cst':100.0},}
@@ -176,7 +175,7 @@ HARES_PARAMS = {'g':
                     {'T': {'lambda':0.02, 'gamma':1.0}, 
                      'X': {'lambda':0.02, 'gamma':1.0},
                      'L': {'lambda':0.02, 'gamma':1.0},},
-                's':
+                'd':
                     {'T': {'lambda':0.02, 'gamma':1.0}, 
                      'X': {'lambda':0.02, 'gamma':1.0},
                      'L': {'lambda':0.02, 'gamma':1.0},}
@@ -184,8 +183,12 @@ HARES_PARAMS = {'g':
 
 if(__name__ == '__main__'):
 
+    
+    # compare_cv(dataset='d', model='L', n_splits=5)
+    compare_cv(dataset='d', model='X', n_splits=5)
+    # compare_cv(dataset='g', model='L', n_splits=5)
+    # compare_cv(dataset='g', model='X', n_splits=5)
     # compare_cv(dataset='i', model='X', n_splits=5)
-    compare_cv(dataset='g', model='X', n_splits=5)
     # compare_cv(dataset='i', model='T', n_splits=10)
     # compare_cv(dataset='g', model='T', n_splits=10)
 

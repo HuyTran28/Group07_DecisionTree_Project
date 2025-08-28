@@ -73,8 +73,11 @@ def sensitivity(dataset='g', model='L', N=10, M=100, gammas=[0.25, 0.5, 0.75, 1.
 COST_TYPE = 'MPS'
 
 if(__name__ == '__main__'):
+    sensitivity(dataset='d', model='L', N=10, M=1000, gammas=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    sensitivity(dataset='d', model='L', N=10, M=1000, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])
 
-    sensitivity(dataset='i', model='L', N=10, M=100, gammas=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
-    # sensitivity(dataset='g', model='L', N=10, M=100, gammas=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
-    # sensitivity(dataset='i', model='L', N=10, M=100, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])
-    # sensitivity(dataset='g', model='L', N=10, M=100, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])
+    sensitivity(dataset='g', model='L', N=10, M=1000, gammas=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    sensitivity(dataset='g', model='L', N=10, M=1000, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])
+
+    sensitivity(dataset='i', model='L', N=10, M=1000, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])
+    sensitivity(dataset='i', model='L', N=10, M=1000, gammas=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
