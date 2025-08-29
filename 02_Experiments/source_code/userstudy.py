@@ -243,6 +243,9 @@ def demo(dataset='t', model='X'):
         print(instance_to_markdown(x, D.feature_names, D.feature_types, D.feature_categories))
         print(actions_to_markdown(actions_dicts, x, D.feature_names, D.feature_types, D.feature_categories))
 
+MODEL = {'L':'LogisticRegression'}
+DATASET = {'i':'attrition', 'g':'german', 'd': 'diabetes'}
+
 def save_markdown_file(dataset, model):
     """Save the accumulated markdown content to a file"""
     global markdown_content
@@ -252,7 +255,7 @@ def save_markdown_file(dataset, model):
     os.makedirs(results_dir, exist_ok=True)
     
     # Use the same naming convention as exp_convergence.py
-    filename = f"userstudy_{dataset}_{model}.md"
+    filename = f"userstudy_{DATASET[dataset]}_{MODEL[model]}.md"
     filepath = os.path.join(results_dir, filename)
     
     # Write to file
@@ -262,7 +265,7 @@ def save_markdown_file(dataset, model):
     print(f"\nLearned results saved to: {filepath}")
 
 if(__name__ == '__main__'):
-    datasets = ['d', 'w', 'i', 'g', 'c']
+    datasets = ['w', 'i', 'g', 'c']
     model = 'L'
     
     for dataset in datasets:
