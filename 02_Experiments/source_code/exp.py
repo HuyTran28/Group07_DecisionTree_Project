@@ -184,7 +184,7 @@ HARES_PARAMS = {'g':
 if(__name__ == '__main__'):
 
     
-    # compare_cv(dataset='d', model='L', n_splits=5)
+    compare_cv(dataset='d', model='L', n_splits=5)
     compare_cv(dataset='d', model='X', n_splits=5)
     # compare_cv(dataset='g', model='L', n_splits=5)
     # compare_cv(dataset='g', model='X', n_splits=5)
