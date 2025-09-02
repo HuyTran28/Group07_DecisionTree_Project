@@ -32,10 +32,9 @@ def compare_cv(dataset='g', model='L', n_splits=5):
         print('* Classifier: LightGBM')
         mdl = LGBMClassifier(n_estimators=100, num_leaves=16, class_weight='balanced')
         print('\t* n_estimators: {}'.format(mdl.n_estimators)); print('\t* num_leaves: {}'.format(mdl.num_leaves));
-    elif(model=='T'):
-        print('* Classifier: TabNet')
-        mdl = MyTabNetClassifier(D.feature_types, verbose=0, class_weight='balanced')
-
+    else:
+        raise ValueError("Model must be 'L' or 'X'.")
+    
     dict_clustering = {'cost_train':[], 'loss_train':[], 'obj_train':[], 'cost_test':[], 'loss_test':[], 'obj_test':[], 'time':[], 'n_actions':[]}
     dict_ares = {'cost_train':[], 'loss_train':[], 'obj_train':[], 'cost_test':[], 'loss_test':[], 'obj_test':[], 'time':[], 'n_actions':[], 'uncover_train':[], 'conflict_train':[], 'uncover_test':[], 'conflict_test':[]}
     dict_cet = {'cost_train':[], 'loss_train':[], 'obj_train':[], 'cost_test':[], 'loss_test':[], 'obj_test':[], 'time':[], 'n_actions':[]}
@@ -149,46 +148,23 @@ def compare_cv(dataset='g', model='L', n_splits=5):
     pd.DataFrame(dict_ares).to_csv('../results/compare/{}/ares_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA), index=False)
     pd.DataFrame(dict_cet).to_csv('../results/compare/{}/cet_{}_{}_{}.csv'.format(model, D.dataset_name, LAMBDA, GAMMA), index=False)
 
-
-
 MAX_ITERATION = 1000
 COST_TYPE = 'MPS'
-MINSUP = {'g':0.05, 'i':0.05, 'd': 0.05}
-ARES_PARAMS = {'g':
-                    {'T': {'acc':1.0, 'cov':1.0, 'cst':0.01}, 
-                     'X': {'acc':10.0, 'cov':1.0, 'cst':10.0},
-                     'L': {'acc':10.0, 'cov':1.0, 'cst':100.0},}, 
-               'i':
-                    {'T': {'acc':1.0, 'cov':1.0, 'cst':100.0}, 
-                     'X': {'acc':1.0, 'cov':1.0, 'cst':0.01},
-                     'L': {'acc':1.0, 'cov':1.0, 'cst':10.0},},
-               'd':
-                    {'T': {'acc':1.0, 'cov':1.0, 'cst':0.01}, 
-                     'X': {'acc':10.0, 'cov':1.0, 'cst':10.0},
-                     'L': {'acc':10.0, 'cov':1.0, 'cst':100.0},}
-                }
-HARES_PARAMS = {'g':
-                    {'T': {'lambda':0.02, 'gamma':1.0}, 
-                     'X': {'lambda':0.02, 'gamma':1.0},
-                     'L': {'lambda':0.02, 'gamma':1.0},}, 
-                'i':
-                    {'T': {'lambda':0.02, 'gamma':1.0}, 
-                     'X': {'lambda':0.02, 'gamma':1.0},
-                     'L': {'lambda':0.02, 'gamma':1.0},},
-                'd':
-                    {'T': {'lambda':0.02, 'gamma':1.0}, 
-                     'X': {'lambda':0.02, 'gamma':1.0},
-                     'L': {'lambda':0.02, 'gamma':1.0},}
-                }
+MINSUP = {'g':0.05, 'i':0.05, 'd': 0.05, 'w': 0.05, 'c': 0.05}
+ARES_PARAMS = {
+    'g': {'L': {'acc':10.0, 'cov':1.0, 'cst':100.0}, 'X': {'acc':10.0, 'cov':1.0, 'cst':10.0}},
+    'i': {'L': {'acc':1.0, 'cov':1.0, 'cst':10.0}, 'X': {'acc':1.0, 'cov':1.0, 'cst':0.01}},
+    'd': {'L': {'acc':10.0, 'cov':1.0, 'cst':100.0}, 'X': {'acc':10.0, 'cov':1.0, 'cst':10.0}},
+    'w': {'L': {'acc':10.0, 'cov':1.0, 'cst':100.0}, 'X': {'acc':10.0, 'cov':1.0, 'cst':10.0}},
+    'c': {'L': {'acc':10.0, 'cov':1.0, 'cst':100.0}, 'X': {'acc':10.0, 'cov':1.0, 'cst':10.0}},
+}
+HARES_PARAMS = {
+    'g': {'L': {'lambda':0.02, 'gamma':1.0}, 'X': {'lambda':0.02, 'gamma':1.0}},
+    'i': {'L': {'lambda':0.02, 'gamma':1.0}, 'X': {'lambda':0.02, 'gamma':1.0}},
+    'd': {'L': {'lambda':0.02, 'gamma':1.0}, 'X': {'lambda':0.02, 'gamma':1.0}},
+    'w': {'L': {'lambda':0.02, 'gamma':1.0}, 'X': {'lambda':0.02, 'gamma':1.0}},
+    'c': {'L': {'lambda':0.02, 'gamma':1.0}, 'X': {'lambda':0.02, 'gamma':1.0}},
+}
 
 if(__name__ == '__main__'):
-
-    
-    compare_cv(dataset='d', model='L', n_splits=5)
     compare_cv(dataset='d', model='X', n_splits=5)
-    # compare_cv(dataset='g', model='L', n_splits=5)
-    # compare_cv(dataset='g', model='X', n_splits=5)
-    # compare_cv(dataset='i', model='X', n_splits=5)
-    # compare_cv(dataset='i', model='T', n_splits=10)
-    # compare_cv(dataset='g', model='T', n_splits=10)
-

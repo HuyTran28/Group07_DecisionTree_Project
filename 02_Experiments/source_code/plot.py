@@ -70,7 +70,7 @@ def latex_compare(model='T', datasets=['i','g'], l=0.02, g=1.0, methods=None):
         f.write('\n'.join(latex_content))
     print(f"Complete LaTeX table saved to: {output_file}")
 
-latex_compare(model='X', datasets=['i'], l=0.02, g=1.0)
+latex_compare(model='X', datasets=['d'], l=0.02, g=1.0)
 
 def latex_compare_time(models=['X','T'], datasets=['i','g'], l=0.02, g=1.0, methods=None):
     if methods is None:
@@ -136,9 +136,7 @@ def latex_compare_time(models=['X','T'], datasets=['i','g'], l=0.02, g=1.0, meth
         f.write('\n'.join(latex_content))
     print(f"Complete LaTeX runtime table saved to: {output_file}")
 
-# Example usage
-# latex_compare_complete(model='X', datasets=['i'], l=0.02, g=1.0)
-# latex_compare_time_complete()
+latex_compare_time(models=['X'], datasets=['d'], l=0.02, g=1.0)
 
 
 def plot_sens_comp(model='L', datasets=['i','g'], gamma=1.0, methods=None):
@@ -169,8 +167,8 @@ def plot_sens_comp(model='L', datasets=['i','g'], gamma=1.0, methods=None):
     plt.savefig('../../01_Report/figures/complexity/{}/tradeoff{}.pdf'.format(model, '_' + method_suffix if method_suffix else ''), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
-plot_sens_comp(model='L', datasets=['i'], gamma=1.0)  
-plot_sens_comp(model='X', datasets=['i'], gamma=1.0)
+plot_sens_comp(model='X', datasets=['d', 'g'], gamma=1.0)
+plot_sens_comp(model='L', datasets=['d', 'g'], gamma=1.0)
 
 
 def plot_sens_comp_pareto_frontier(model='L', datasets=['i', 'g'], gamma=1.0, methods=None):
@@ -238,8 +236,8 @@ def plot_sens_comp_pareto_frontier(model='L', datasets=['i', 'g'], gamma=1.0, me
     plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_pareto{}.pdf'.format(model, '_' + method_suffix if method_suffix else ''), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
-plot_sens_comp_pareto_frontier(model='L', datasets=['i'], gamma=1.0)
-plot_sens_comp_pareto_frontier(model='X', datasets=['i'], gamma=1.0)
+plot_sens_comp_pareto_frontier(model='X', datasets=['d', 'g'], gamma=1.0)
+plot_sens_comp_pareto_frontier(model='L', datasets=['d', 'g'], gamma=1.0)
 
 
 def plot_sens_comp_all(model='L', dataset='i', gamma=1.0, methods=None):
@@ -264,8 +262,10 @@ def plot_sens_comp_all(model='L', dataset='i', gamma=1.0, methods=None):
     plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_{}{}.pdf'.format(model, DATASET[dataset], '_' + method_suffix if method_suffix else ''), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
-plot_sens_comp_all(model='L', dataset='i', gamma=1.0)
-plot_sens_comp_all(model='X', dataset='i', gamma=1.0)
+plot_sens_comp_all(model='X', dataset='d', gamma=1.0)
+plot_sens_comp_all(model='L', dataset='d', gamma=1.0)
+plot_sens_comp_all(model='X', dataset='g', gamma=1.0)
+plot_sens_comp_all(model='L', dataset='g', gamma=1.0)
 
 
 def plot_sens_gamma(model='L', datasets=['i','g'], gammas=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]):
@@ -287,7 +287,7 @@ def plot_sens_gamma(model='L', datasets=['i','g'], gammas=[0.1, 0.2, 0.3, 0.4, 0
     plt.savefig('../../01_Report/figures/gamma/{}/sensitivity.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
-plot_sens_gamma(model='L', datasets=['i','g'])
+plot_sens_gamma(model='L', datasets=['d', 'g'])
 
 def plot_sens_conv(model='L', dataset='g', gammas=[0.75, 1.0, 1.25], lambdas=[0.01, 0.03, 0.05]):
     plt.rcParams["font.family"] = 'arial'
@@ -315,7 +315,6 @@ def plot_sens_conv(model='L', dataset='g', gammas=[0.75, 1.0, 1.25], lambdas=[0.
     plt.savefig(res_name+'.pdf', bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
-plot_sens_conv(model='L', dataset='g', gammas=[0.75], lambdas=[0.01, 0.03, 0.05])
-# plot_sens_conv(dataset='g', gammas=[0.75], lambdas=[0.01, 0.03, 0.05])
-# plot_sens_conv(dataset='i', gammas=[0.75, 1.0, 1.25], lambdas=[0.01, 0.03, 0.05])
+plot_sens_conv(model='L', dataset='d', gammas=[0.75], lambdas=[0.01, 0.03, 0.05])
+plot_sens_conv(model='L', dataset='i', gammas=[0.75], lambdas=[0.01, 0.03, 0.05])
 

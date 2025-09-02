@@ -265,7 +265,7 @@ def save_markdown_file(dataset, model):
     print(f"\nLearned results saved to: {filepath}")
 
 if(__name__ == '__main__'):
-    datasets = ['w', 'i', 'g', 'c']
+    datasets = ['d', 'g', 'i']
     model = 'L'
     
     for dataset in datasets:

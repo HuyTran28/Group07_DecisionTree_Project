@@ -9,39 +9,22 @@ CET là một framework cho bài toán Giải thích phản thực (CE), trong �
 
 # Các tập dữ liệu được sử dụng
 
-- `adult.csv:` [Adult [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C5XW20)
 - `attrition.csv:` [Kaggle - IBM HR Analytics Employee Attrition & Performance](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
-- `bank.csv:` [Bank Marketing [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C5K306)
-- `compas.csv:` 
-- `diabetes.csv:` [Predict Diabetes From Medical Records]([www.kaggle.com/code/paultimothymooney/predict-diabetes-from-medical-records](https://www.kaggle.com/code/paultimothymooney/predict-diabetes-from-medical-records))
+- `compas.csv:` [COMPAS Recidivism Risk Score Data and Analysis](https://projects.propublica.org/datastore/#compas-recidivism-risk-score-data-and-analysis)
+- `diabetes.csv:` [Predict Diabetes From Medical Records](https://www.kaggle.com/code/paultimothymooney/predict-diabetes-from-medical-records)
 - `german.csv:` Dua, D. and Graff, C. (2017) UCI Machine Learning Repository
-- `heloc.csv:`
-- `NHANESI.csv:`
-- `student.csv:`
-- `toy_attrition.csv:`
 - `wine.csv:` [Wine Quality [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C56S3T)
 
 | Mã tập dữ liệu | Tên tập dữ liệu | Kích thước | Trường hợp sử dụng |
 |--------------|--------------|-------|-------------------|
 | 'g' | German | Vừa | Phê duyệt tín dụng |
-| 'w' | Wine | Vừa | Dự đoán chất lượng |
-| 'h' | HELOC | Lớn | Dự đoán rủi ro tín dụng |
-| 'c' | COMPAS | Vừa | Dự đoán tội phạm |
-| 'a' | Adult | Lớn | Dự đoán thu nhập |
 | 'd' | Diabetes | Vừa | Dự đoán bệnh tiểu đường |
-| 'n' | NHANESI | Lớn | Dự đoán sức khỏe |
-| 's' | Student | Vừa | Dự đoán thành công học tập |
-| 'b' | Bank | Lớn | Dự đoán khách hàng |
 | 'i' | Attrition | Vừa | Dự đoán nghỉ việc |
-| 't' | Toy Attrition | Nhỏ | Kiểm thử |
 
 | Mã mô hình | Tên mô hình | Phân loại | Tốc độ | Độ chính xác | Khả năng lý giải |
 |----------|-----------|----------|--------|--------------|----------------|
 | 'L' | Logistic Regression | Tuyến tính | Nhanh | Tương đối | Cao |
-| 'F' | Random Forest | Tập hợp cây quyết định | Trung bình | Cao | Trung bình |
-| 'M' | Multi-Layer Perceptron | Mạng nơ-ron | Trung bình | Cao | Thấp |
 | 'X' | LightGBM | Tăng cường theo gradient | Nhanh | Rất cao | Thấp |
-| 'T' | TabNet | Học sâu | Chậm | Rất cao | Trung bình |
 
 # Hướng dẫn sử dụng
 

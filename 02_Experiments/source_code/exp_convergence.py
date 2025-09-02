@@ -43,40 +43,17 @@ def convergence(dataset='g', model='L', params=(0.01, 1.0)):
     os.makedirs(output_dir, exist_ok=True)
     pd.DataFrame(cet.objs_).to_csv('../results/convergence/{}/cet_{}_objective_{}_{}.csv'.format(model, D.dataset_name, l, g), index=False)
 
-
-
 MAX_ITERATION = 1000
 COST_TYPE = 'MPS'
 
 if(__name__ == '__main__'):
 
-    # convergence(dataset='d', model='L', params=(0.01, 0.75))
-    # convergence(dataset='d', model='L', params=(0.03, 0.75))
+    convergence(dataset='d', model='L', params=(0.01, 0.75))
+    convergence(dataset='d', model='L', params=(0.03, 0.75))
     convergence(dataset='d', model='L', params=(0.05, 0.75))
-
-    # convergence(dataset='g', model='L', params=(0.01, 0.75))
-    # convergence(dataset='g', model='L', params=(0.03, 0.75))
-    # convergence(dataset='g', model='L', params=(0.05, 0.75))
-
-    # convergence(dataset='g', model='L', params=(0.01, 1.0))
-    # convergence(dataset='g', model='L', params=(0.03, 1.0))
-    # convergence(dataset='g', model='L', params=(0.05, 1.0))
-
-    # convergence(dataset='g', model='L', params=(0.01, 1.25))
-    # convergence(dataset='g', model='L', params=(0.03, 1.25))
-    # convergence(dataset='g', model='L', params=(0.05, 1.25))
-
 
     convergence(dataset='i', model='L', params=(0.01, 0.75))
     convergence(dataset='i', model='L', params=(0.03, 0.75))
     convergence(dataset='i', model='L', params=(0.05, 0.75))
-
-    # convergence(dataset='i', model='L', params=(0.01, 1.0))
-    # convergence(dataset='i', model='L', params=(0.03, 1.0))
-    # convergence(dataset='i', model='L', params=(0.05, 1.0))
-
-    # convergence(dataset='i', model='L', params=(0.01, 1.25))
-    # convergence(dataset='i', model='L', params=(0.03, 1.25))
-    # convergence(dataset='i', model='L', params=(0.05, 1.25))
 
 

@@ -1,0 +1,16 @@
+\begin{table}[htbp]
+\centering
+\caption{Performance Comparison for LightGBM Model}
+\label{tab:compare_x}
+\begin{tabular}{lcccccc}
+\toprule
+Method & \multicolumn{2}{c}{Cost} & \multicolumn{2}{c}{Loss} & \multicolumn{2}{c}{Objective} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+ & Train & Test & Train & Test & Train & Test \\
+\midrule
+Clustering & 0.000 $\pm$ 0.00 & 1.000 $\pm$ 0.00 & 1.000 $\pm$ 0.00 & 0.000 $\pm$ 0.00 & 1.000 $\pm$ 0.00 & 1.000 $\pm$ 0.00 \\
+AReS & 0.586 $\pm$ 0.02 & 0.090 $\pm$ 0.04 & 0.676 $\pm$ 0.03 & 0.622 $\pm$ 0.04 & 0.077 $\pm$ 0.03 & 0.699 $\pm$ 0.01 \\
+CET & 0.474 $\pm$ 0.05 & 0.165 $\pm$ 0.07 & 0.639 $\pm$ 0.06 & 0.479 $\pm$ 0.06 & 0.181 $\pm$ 0.07 & 0.660 $\pm$ 0.06 \\
+\bottomrule
+\end{tabular}
+\end{table}
