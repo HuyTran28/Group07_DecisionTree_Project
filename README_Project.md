@@ -10,10 +10,8 @@ CET là một framework cho bài toán Giải thích phản thực (CE), trong �
 # Các tập dữ liệu được sử dụng
 
 - `attrition.csv:` [Kaggle - IBM HR Analytics Employee Attrition & Performance](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
-- `compas.csv:` [COMPAS Recidivism Risk Score Data and Analysis](https://projects.propublica.org/datastore/#compas-recidivism-risk-score-data-and-analysis)
 - `diabetes.csv:` [Predict Diabetes From Medical Records](https://www.kaggle.com/code/paultimothymooney/predict-diabetes-from-medical-records)
 - `german.csv:` Dua, D. and Graff, C. (2017) UCI Machine Learning Repository
-- `wine.csv:` [Wine Quality [Dataset]. UCI Machine Learning Repository](https://doi.org/10.24432/C56S3T)
 
 | Mã tập dữ liệu | Tên tập dữ liệu | Kích thước | Trường hợp sử dụng |
 |--------------|--------------|-------|-------------------|
@@ -187,39 +185,53 @@ python exp_gamma.py
 ```
 📦02_Experiments
  ┣ 📂datasets
- ┃ ┣ 📜adult.csv
  ┃ ┣ 📜attrition.csv
- ┃ ┣ 📜bank.csv
- ┃ ┣ 📜compas.csv
  ┃ ┣ 📜diabetes.csv
- ┃ ┣ 📜german.csv
- ┃ ┣ 📜heloc.csv
- ┃ ┣ 📜NHANESI.csv
- ┃ ┣ 📜student.csv
- ┃ ┣ 📜toy_attrition.csv
- ┃ ┗ 📜wine.csv
+ ┃ ┗ 📜german.csv
  ┣ 📂results
+ ┃ ┣ 📂compare
+ ┃ ┃ ┗ 📂X
+ ┃ ┃ ┃ ┣ 📂convergence
+ ┃ ┃ ┃ ┃ ┣ 📜cet_diabetes_objective_0.02_1.0_1.csv
+ ┃ ┃ ┃ ┃ ┣ 📜cet_diabetes_objective_0.02_1.0_2.csv
+ ┃ ┃ ┃ ┃ ┣ 📜cet_diabetes_objective_0.02_1.0_3.csv
+ ┃ ┃ ┃ ┃ ┣ 📜cet_diabetes_objective_0.02_1.0_4.csv
+ ┃ ┃ ┃ ┃ ┗ 📜cet_diabetes_objective_0.02_1.0_5.csv
+ ┃ ┃ ┃ ┣ 📜ares_diabetes_0.02_1.0.csv
+ ┃ ┃ ┃ ┣ 📜cet_diabetes_0.02_1.0.csv
+ ┃ ┃ ┃ ┗ 📜clustering_diabetes_0.02_1.0.csv
  ┃ ┣ 📂complexity
- ┃ ┃ ┗ 📂L
- ┃ ┃ ┃ ┣ 📜tradeoff.pdf
- ┃ ┃ ┃ ┣ 📜tradeoff.png
- ┃ ┃ ┃ ┣ 📜tradeoff_attrition.pdf
- ┃ ┃ ┃ ┣ 📜tradeoff_attrition.png
- ┃ ┃ ┃ ┣ 📜tradeoff_german.pdf
- ┃ ┃ ┃ ┣ 📜tradeoff_german.png
- ┃ ┃ ┃ ┣ 📜tradeoff_pareto.pdf
- ┃ ┃ ┃ ┗ 📜tradeoff_pareto.png
+ ┃ ┃ ┣ 📂L
+ ┃ ┃ ┃ ┣ 📜ares_diabetes_1.0.csv
+ ┃ ┃ ┃ ┣ 📜ares_german_1.0.csv
+ ┃ ┃ ┃ ┣ 📜cet_diabetes_1.0.csv
+ ┃ ┃ ┃ ┣ 📜cet_german_1.0.csv
+ ┃ ┃ ┃ ┣ 📜clustering_diabetes_1.0.csv
+ ┃ ┃ ┃ ┗ 📜clustering_german_1.0.csv
+ ┃ ┃ ┗ 📂X
+ ┃ ┃ ┃ ┣ 📜ares_diabetes_1.0.csv
+ ┃ ┃ ┃ ┣ 📜ares_german_1.0.csv
+ ┃ ┃ ┃ ┣ 📜cet_diabetes_1.0.csv
+ ┃ ┃ ┃ ┣ 📜cet_german_1.0.csv
+ ┃ ┃ ┃ ┣ 📜clustering_diabetes_1.0.csv
+ ┃ ┃ ┃ ┗ 📜clustering_german_1.0.csv
  ┃ ┣ 📂convergence
  ┃ ┃ ┗ 📂L
- ┃ ┃ ┃ ┣ 📜convergence_attrition.pdf
- ┃ ┃ ┃ ┣ 📜convergence_attrition.png
- ┃ ┃ ┃ ┣ 📜convergence_german.pdf
- ┃ ┃ ┃ ┗ 📜convergence_german.png
- ┃ ┗ 📂gamma
+ ┃ ┃ ┃ ┣ 📜cet_attrition_objective_0.01_0.75.csv
+ ┃ ┃ ┃ ┣ 📜cet_attrition_objective_0.03_0.75.csv
+ ┃ ┃ ┃ ┣ 📜cet_attrition_objective_0.05_0.75.csv
+ ┃ ┃ ┃ ┣ 📜cet_diabetes_objective_0.01_0.75.csv
+ ┃ ┃ ┃ ┣ 📜cet_diabetes_objective_0.03_0.75.csv
+ ┃ ┃ ┃ ┗ 📜cet_diabetes_objective_0.05_0.75.csv
+ ┃ ┣ 📂gamma
  ┃ ┃ ┗ 📂L
- ┃ ┃ ┃ ┣ 📜sensitivity.pdf
- ┃ ┃ ┃ ┗ 📜sensitivity.png
- ┗ 📂source_code
+ ┃ ┃ ┃ ┣ 📜sensitivity_diabetes.csv
+ ┃ ┃ ┃ ┗ 📜sensitivity_german.csv
+ ┃ ┗ 📂userstudy
+ ┃ ┃ ┣ 📜userstudy_attrition_LogisticRegression.md
+ ┃ ┃ ┣ 📜userstudy_diabetes_LogisticRegression.md
+ ┃ ┃ ┗ 📜userstudy_german_LogisticRegression.md
+ ┣ 📂source_code
  ┃ ┣ 📜ares.py
  ┃ ┣ 📜ce.py
  ┃ ┣ 📜cet.py
@@ -231,9 +243,12 @@ python exp_gamma.py
  ┃ ┣ 📜exp_gamma.py
  ┃ ┣ 📜LICENSE
  ┃ ┣ 📜plot.py
+ ┃ ┣ 📜prototype_ce.py
+ ┃ ┣ 📜random_ce.py
  ┃ ┣ 📜rule_miner.py
  ┃ ┣ 📜userstudy.py
  ┃ ┗ 📜utils.py
+ ┗ 📜requirements.txt
  ```
 
 # Mã nguồn framework Cây giải thích phản thực
