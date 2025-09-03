@@ -73,5 +73,5 @@ def sensitivity(dataset='g', model='L', N=10, M=100, gammas=[0.25, 0.5, 0.75, 1.
 COST_TYPE = 'MPS'
 
 if(__name__ == '__main__'):
-    sensitivity(dataset='d', model='X', N=10, M=1000, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])
+    sensitivity(dataset='d', model='L', N=10, M=1000, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])
     sensitivity(dataset='g', model='L', N=10, M=1000, gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])

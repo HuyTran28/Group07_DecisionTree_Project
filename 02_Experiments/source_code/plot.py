@@ -287,7 +287,7 @@ def plot_sens_gamma(model='L', datasets=['i','g'], gammas=[0.1, 0.2, 0.3, 0.4, 0
     plt.savefig('../../01_Report/figures/gamma/{}/sensitivity.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
-plot_sens_gamma(model='L', datasets=['d', 'g'])
+plot_sens_gamma(model='L', datasets=['d'], gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])
 
 def plot_sens_conv(model='L', dataset='g', gammas=[0.75, 1.0, 1.25], lambdas=[0.01, 0.03, 0.05]):
     plt.rcParams["font.family"] = 'arial'
