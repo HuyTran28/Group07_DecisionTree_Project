@@ -178,6 +178,5 @@ def demo_compare_methods(dataset='t', model='X'):
     return df
 
 if(__name__ == '__main__'):
-    demo_cet(model='X')
-    #demo_random_ce(model='X')
-    demo_compare_methods(model='X')
+    demo_cet(dataset='i', model='X')
+    demo_compare_methods(dataset='i', model='X')

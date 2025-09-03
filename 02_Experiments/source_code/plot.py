@@ -164,7 +164,6 @@ def plot_sens_comp(model='L', datasets=['i','g'], gamma=1.0, methods=None):
     method_suffix = '_'.join(methods) if len(methods) != 3 else ''
     os.makedirs('../../01_Report/figures/complexity/{}'.format(model), exist_ok=True)
     plt.savefig('../../01_Report/figures/complexity/{}/tradeoff{}.png'.format(model, '_' + method_suffix if method_suffix else ''), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff{}.pdf'.format(model, '_' + method_suffix if method_suffix else ''), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 plot_sens_comp(model='X', datasets=['d', 'g'], gamma=1.0)
@@ -233,7 +232,6 @@ def plot_sens_comp_pareto_frontier(model='L', datasets=['i', 'g'], gamma=1.0, me
     method_suffix = '_'.join(methods) if len(methods) != 3 else ''
     os.makedirs('../../01_Report/figures/complexity/{}'.format(model), exist_ok=True)
     plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_pareto{}.png'.format(model, '_' + method_suffix if method_suffix else ''), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_pareto{}.pdf'.format(model, '_' + method_suffix if method_suffix else ''), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 plot_sens_comp_pareto_frontier(model='X', datasets=['d', 'g'], gamma=1.0)
@@ -259,7 +257,6 @@ def plot_sens_comp_all(model='L', dataset='i', gamma=1.0, methods=None):
     method_suffix = '_'.join(methods) if len(methods) != 3 else ''
     os.makedirs('../../01_Report/figures/complexity/{}'.format(model), exist_ok=True)
     plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_{}{}.png'.format(model, DATASET[dataset], '_' + method_suffix if method_suffix else ''), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('../../01_Report/figures/complexity/{}/tradeoff_{}{}.pdf'.format(model, DATASET[dataset], '_' + method_suffix if method_suffix else ''), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 plot_sens_comp_all(model='X', dataset='d', gamma=1.0)
@@ -284,7 +281,6 @@ def plot_sens_gamma(model='L', datasets=['i','g'], gammas=[0.1, 0.2, 0.3, 0.4, 0
     
     os.makedirs('../../01_Report/figures/gamma/{}'.format(model), exist_ok=True)
     plt.savefig('../../01_Report/figures/gamma/{}/sensitivity.png'.format(model), bbox_inches='tight', pad_inches=0.05)
-    plt.savefig('../../01_Report/figures/gamma/{}/sensitivity.pdf'.format(model), bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 plot_sens_gamma(model='L', datasets=['d'], gammas=[0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0])
@@ -312,7 +308,6 @@ def plot_sens_conv(model='L', dataset='g', gammas=[0.75, 1.0, 1.25], lambdas=[0.
     
     os.makedirs('../../01_Report/figures/convergence/{}'.format(model), exist_ok=True)
     plt.savefig(res_name+'.png', bbox_inches='tight', pad_inches=0.05)
-    plt.savefig(res_name+'.pdf', bbox_inches='tight', pad_inches=0.05)
     plt.clf()
 
 plot_sens_conv(model='L', dataset='d', gammas=[0.75], lambdas=[0.01, 0.03, 0.05])
